@@ -2,9 +2,28 @@
 <html>
   <head>
     <title>Otvorene granice</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <script src="./script.js"></script>
   </head>
   <body>
-    Otvorene granice
+    <p class="h1 text-center text-info mx-4">Otvorene granice</p>
+    <div id="countries">
+      <div class="container mb-4">
+        <div class="row">
+          <div class="col-xs-12 col-sm-12 col-md-4">
+            <p class="lead text-center text-primary">Nije potreban test</p>
+            <ul class="list-group" id="OPEN_BORDER"></ul>
+          </div>
+          <div class="col-xs-12 col-sm-12 col-md-4">
+            <p class="lead text-center text-success">Potreban negativan test</p>
+            <ul class="list-group" id="NEGATIVE_TEST_REQUIRED"></ul>
+          </div>
+          <div class="col-xs-12 col-sm-12 col-md-4">
+            <p class="lead text-center text-danger">Obavezan karantin</p>
+            <ul class="list-group" id="QUARANTINE_REQUIRED"></ul>
+          </div>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
