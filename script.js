@@ -11,7 +11,7 @@ const titleCase = (text) => text.split(' ').map(item => {
 
 const loadCountries = async () => {
   try {
-    const countries = await fetch('http://localhost:8080/api/countries').then(response => response.json());
+    const countries = await fetch('http://open-borders.herokuapp.com/api/countries').then(response => response.json());
     const groups = countries.reduce((acc, current) => {
       if (acc[current.status]) acc[current.status].push(current);
       else acc[current.status] = [current];
