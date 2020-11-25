@@ -22,9 +22,9 @@ const loadCountries = async () => {
       groups[type].forEach(({ name: countryName, info: countryInfo }) => {
         const countryHtml = `<div class="list-group-item list-group-item-action flex-column align-items-start">
         <div class="d-flex w-100 justify-content-between">
-          <h5 class="mb-1">${titleCase(countryName)}</h5>
+          <h5 class="mb-1 text-info">${titleCase(countryName)}</h5>
           </div>
-          <p class="mb-1">${countryInfo}</p></div>`;
+          <p class="mb-1 text-muted">${countryInfo}</p></div>`;
         countriesByType.innerHTML += countryHtml;
       });
     });
