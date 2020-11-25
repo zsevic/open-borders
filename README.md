@@ -7,5 +7,10 @@ See demo: [https://sevic.dev/open-borders](https://sevic.dev/open-borders)
 ```bash
 git clone https://github.com/zsevic/open-borders
 cd open-borders
-npx http-server
+npm run dev
+```
+
+### Deployment
+```bash
+npm run deploy
 ```
