@@ -19,11 +19,13 @@ const loadCountries = async () => {
     }, {});
     countryTypes.forEach(type => {
       const countriesByType = document.getElementById(type);
-      groups[type].forEach(({ name: countryName }) => {
-        const countryElement = document.createElement('li');
-        countryElement.innerHTML = titleCase(countryName);
-        countryElement.classList.add('list-group-item');
-        countriesByType.appendChild(countryElement);
+      groups[type].forEach(({ name: countryName, info: countryInfo }) => {
+        const countryHtml = `<div class="list-group-item list-group-item-action flex-column align-items-start">
+        <div class="d-flex w-100 justify-content-between">
+          <h5 class="mb-1">${titleCase(countryName)}</h5>
+          </div>
+          <p class="mb-1">${countryInfo}</p></div>`;
+        countriesByType.innerHTML += countryHtml;
       });
     });
   } catch (err) {
