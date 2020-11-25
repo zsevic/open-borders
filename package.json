@@ -6,10 +6,10 @@
   "scripts": {
     "prebuild": "npm run clean",
     "build": "parcel build src/index.html --public-url /open-borders/",
-    "clean": "rimraf dist",
+    "clean": "rimraf dist && rimraf .cache",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist",
-    "dev": "parcel src/index.html"
+    "dev": "NODE_ENV=development parcel src/index.html"
   },
   "repository": {
     "type": "git",
