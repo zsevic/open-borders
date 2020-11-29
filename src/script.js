@@ -1,9 +1,8 @@
 const NEGATIVE_TEST_REQUIRED = 'NEGATIVE_TEST_REQUIRED';
 const NO_TEST_REQUIRED = 'NO_TEST_REQUIRED';
-// const CLOSED_BORDER = 'CLOSED_BORDER';
 const QUARANTINE_REQUIRED = 'QUARANTINE_REQUIRED';
 
-const countryTypes = [/*CLOSED_BORDER, */NEGATIVE_TEST_REQUIRED, NO_TEST_REQUIRED, QUARANTINE_REQUIRED];
+const countryTypes = [NEGATIVE_TEST_REQUIRED, NO_TEST_REQUIRED, QUARANTINE_REQUIRED];
 
 const titleCase = (text) => text.split(' ').map(item => {
   if (item === 'I') return item.toLowerCase();
