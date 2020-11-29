@@ -25,7 +25,7 @@ const loadCountries = async () => {
         <div class="d-flex w-100 justify-content-between">
           <h5 class="mb-1 text-info">${titleCase(countryName)}</h5>
           </div>
-          <p class="mb-1 text-muted">${countryInfo}</p></div>`;
+          <p class="mb-1 text-muted" style="word-wrap:break-word">${countryInfo}</p></div>`;
         countriesByType.innerHTML += countryHtml;
       });
     });
