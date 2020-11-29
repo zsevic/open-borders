@@ -7,7 +7,7 @@
     "prebuild": "npm run clean",
     "build": "parcel build src/index.html --public-url /",
     "clean": "rimraf dist && rimraf .cache",
-    "predeploy": "npm run build",
+    "predeploy": "npm run build && echo \"otvorene-granice.com\" > dist/CNAME",
     "deploy": "gh-pages -d dist",
     "dev": "NODE_ENV=development parcel src/index.html"
   },
