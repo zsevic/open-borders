@@ -6,6 +6,7 @@ const countryTypes = [NEGATIVE_TEST_REQUIRED, NO_TEST_REQUIRED, QUARANTINE_REQUI
 
 const titleCase = (text) => text.split(' ').map(item => {
   if (item === 'I') return item.toLowerCase();
+  if (item === 'SAD') return item;
   return item.charAt(0) + item.substring(1).toLowerCase();
 }).join(' ');
 
@@ -20,10 +21,10 @@ const loadCountries = async () => {
     }, {});
     countryTypes.forEach(type => {
       const countriesByType = document.getElementById(type);
-      groups[type]?.forEach(({ name: countryName, info: countryInfo }) => {
+      groups[type]?.forEach(({ name: countryName, info: countryInfo, flag }) => {
         const countryHtml = `<div class="list-group-item list-group-item-action flex-column align-items-start">
         <div class="d-flex w-100 justify-content-between">
-          <h5 class="mb-1 text-info">${titleCase(countryName)}</h5>
+          <h5 class="mb-1 text-info">${flag} ${titleCase(countryName)}</h5>
           </div>
           <p class="mb-1 text-muted" style="word-wrap:break-word">${countryInfo}</p></div>`;
         countriesByType.innerHTML += countryHtml;
