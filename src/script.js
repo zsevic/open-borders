@@ -21,6 +21,7 @@ const loadCountries = async () => {
     }, {});
     countryTypes.forEach(type => {
       const countriesByType = document.getElementById(type);
+      const countriesByTypeTab = document.getElementById(`${type}_TAB`);
       groups[type]?.forEach(({ name: countryName, info: countryInfo, flag }) => {
         const countryHtml = `<div class="list-group-item list-group-item-action flex-column align-items-start">
         <div class="d-flex w-100 justify-content-between">
@@ -28,6 +29,7 @@ const loadCountries = async () => {
           </div>
           <p class="mb-1 text-muted" style="word-wrap:break-word">${countryInfo}</p></div>`;
         countriesByType.innerHTML += countryHtml;
+        countriesByTypeTab.innerHTML += countryHtml;
       });
     });
   } catch (err) {
