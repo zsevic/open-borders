@@ -10,6 +10,25 @@ const titleCase = (text) => text.split(' ').map(item => {
   return item.charAt(0) + item.substring(1).toLowerCase();
 }).join(' ');
 
+const setBorderTopClassForFirstCountryElement = () => {
+  countryTypes.forEach(type => {
+    const [firstCountryTabElement, ...otherCountryTabElements] = [].filter
+      .call(document.getElementById(`${type}_TAB`).children, (element) => element.style.display !== 'none');
+    const [firstCountryElement, ...otherCountryElements] = [].filter
+      .call(document.getElementById(type).children, (element) => element.style.display !== 'none');
+
+    if (!firstCountryElement || !firstCountryTabElement) return;
+
+    firstCountryTabElement.classList.add('border-top');
+    firstCountryElement.classList.add('border-top');
+    const countryElements = [...otherCountryElements, ...otherCountryTabElements];
+
+    for (const countryElement of countryElements) {
+      countryElement.classList.remove('border-top');
+    }
+  });
+};
+
 const setCountryCounter = () => {
   countryTypes.forEach(type => {
     const countriesByTypeCounter = [].filter
@@ -35,6 +54,7 @@ document.getElementById('input-search').addEventListener('input', (event) => {
       country.parentElement.parentElement.style.display = '';
     }
     setCountryCounter();
+    setBorderTopClassForFirstCountryElement();
     return;
   }
 
@@ -50,6 +70,7 @@ document.getElementById('input-search').addEventListener('input', (event) => {
     }
   }
   setCountryCounter();
+  setBorderTopClassForFirstCountryElement();
 });
 
 const loadCountries = async () => {
