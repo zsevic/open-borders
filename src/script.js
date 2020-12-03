@@ -15,13 +15,15 @@ const setCountryCounter = () => {
     const countriesByTypeCounter = [].filter
       .call(document.getElementById(type).children, (element) => element.style.display !== 'none')
       .length;
-    const countriesByTypeTabCounter = [].filter
-      .call(document.getElementById(`${type}_TAB`).children, (element) => element.style.display !== 'none')
-      .length;
     const countriesByTypeBadge = document.getElementById(`${type}_BADGE`);
     const countriesByTypeTabBadge = document.getElementById(`${type}_TAB_BADGE`);
+    const countriesByTypeInfo = document.getElementById(`${type}_INFO`);
+    const countriesByTypeTabInfo = document.getElementById(`${type}_TAB_INFO`);
+    const countriesByTypeStyleDisplay = countriesByTypeCounter > 0 ? 'none' : '';
+    countriesByTypeInfo.style.display = countriesByTypeStyleDisplay;
+    countriesByTypeTabInfo.style.display = countriesByTypeStyleDisplay;
     countriesByTypeBadge.innerHTML = countriesByTypeCounter;
-    countriesByTypeTabBadge.innerHTML = countriesByTypeTabCounter;
+    countriesByTypeTabBadge.innerHTML = countriesByTypeCounter;
   });
 }
 
@@ -62,8 +64,10 @@ const loadCountries = async () => {
     countryTypes.forEach(type => {
       const countriesByType = document.getElementById(type);
       const countriesByTypeBadge = document.getElementById(`${type}_BADGE`);
+      const countriesByTypeInfo = document.getElementById(`${type}_INFO`);
       const countriesByTypeTab = document.getElementById(`${type}_TAB`);
       const countriesByTypeTabBadge = document.getElementById(`${type}_TAB_BADGE`);
+      const countriesByTypeTabInfo = document.getElementById(`${type}_TAB_INFO`);
       groups[type]?.forEach(({ name: countryName, info: countryInfo, flag }) => {
         const countryHtml = `<div class="list-group-item list-group-item-action flex-column align-items-start">
         <div class="d-flex w-100 justify-content-between">
@@ -73,8 +77,12 @@ const loadCountries = async () => {
         countriesByType.innerHTML += countryHtml;
         countriesByTypeTab.innerHTML += countryHtml;
       });
-      countriesByTypeBadge.innerHTML = groups[type].length;
-      countriesByTypeTabBadge.innerHTML = groups[type].length;
+      const { length } = groups[type];
+      const countriesByTypeStyleDisplay = length > 0 ? 'none' : '';
+      countriesByTypeInfo.style.display = countriesByTypeStyleDisplay;
+      countriesByTypeTabInfo.style.display = countriesByTypeStyleDisplay;
+      countriesByTypeBadge.innerHTML = length;
+      countriesByTypeTabBadge.innerHTML = length;
     });
   } catch (err) {
     console.error(err);
