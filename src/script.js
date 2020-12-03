@@ -10,6 +10,21 @@ const titleCase = (text) => text.split(' ').map(item => {
   return item.charAt(0) + item.substring(1).toLowerCase();
 }).join(' ');
 
+const setCountryCounter = () => {
+  countryTypes.forEach(type => {
+    const countriesByTypeCounter = [].filter
+      .call(document.getElementById(type).children, (element) => element.style.display !== 'none')
+      .length;
+    const countriesByTypeTabCounter = [].filter
+      .call(document.getElementById(`${type}_TAB`).children, (element) => element.style.display !== 'none')
+      .length;
+    const countriesByTypeBadge = document.getElementById(`${type}_BADGE`);
+    const countriesByTypeTabBadge = document.getElementById(`${type}_TAB_BADGE`);
+    countriesByTypeBadge.innerHTML = countriesByTypeCounter;
+    countriesByTypeTabBadge.innerHTML = countriesByTypeTabCounter;
+  });
+}
+
 document.getElementById('input-search').addEventListener('input', (event) => {
   const { value } = event.target;
   if (!value) {
@@ -17,6 +32,7 @@ document.getElementById('input-search').addEventListener('input', (event) => {
     for (const country of countryList.values()) {
       country.parentElement.parentElement.style.display = '';
     }
+    setCountryCounter();
     return;
   }
 
@@ -31,6 +47,7 @@ document.getElementById('input-search').addEventListener('input', (event) => {
       country.parentElement.parentElement.style.display = 'none';
     }
   }
+  setCountryCounter();
 });
 
 const loadCountries = async () => {
@@ -44,7 +61,9 @@ const loadCountries = async () => {
     }, {});
     countryTypes.forEach(type => {
       const countriesByType = document.getElementById(type);
+      const countriesByTypeBadge = document.getElementById(`${type}_BADGE`);
       const countriesByTypeTab = document.getElementById(`${type}_TAB`);
+      const countriesByTypeTabBadge = document.getElementById(`${type}_TAB_BADGE`);
       groups[type]?.forEach(({ name: countryName, info: countryInfo, flag }) => {
         const countryHtml = `<div class="list-group-item list-group-item-action flex-column align-items-start">
         <div class="d-flex w-100 justify-content-between">
@@ -54,6 +73,8 @@ const loadCountries = async () => {
         countriesByType.innerHTML += countryHtml;
         countriesByTypeTab.innerHTML += countryHtml;
       });
+      countriesByTypeBadge.innerHTML = groups[type].length;
+      countriesByTypeTabBadge.innerHTML = groups[type].length;
     });
   } catch (err) {
     console.error(err);

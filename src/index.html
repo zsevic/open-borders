@@ -30,9 +30,9 @@
 
     <div class="container d-block d-lg-none mt-3">
       <ul class="nav nav-tabs nav-fill mb-3">
-        <li class="nav-item"><a class="nav-link active text-success" data-toggle="tab" href="#home">Ne treba test</a></li>
-        <li class="nav-item"><a class="nav-link text-warning" data-toggle="tab" href="#menu1">Negativan test</a></li>
-        <li class="nav-item"><a class="nav-link text-danger" data-toggle="tab" href="#menu2">Karantin</a></li>
+        <li class="nav-item"><a class="nav-link active text-success" data-toggle="tab" href="#home">Ne treba test <span class="badge badge-info" id="NO_TEST_REQUIRED_TAB_BADGE">0</span></a></li>
+        <li class="nav-item"><a class="nav-link text-warning" data-toggle="tab" href="#menu1">Negativan test <span class="badge badge-info" id="NEGATIVE_TEST_REQUIRED_TAB_BADGE">0</span></a></li>
+        <li class="nav-item"><a class="nav-link text-danger" data-toggle="tab" href="#menu2">Karantin <span class="badge badge-info" id="QUARANTINE_REQUIRED_TAB_BADGE">0</span></a></li>
       </ul>
 
       <div class="tab-content">
@@ -52,15 +52,15 @@
       <div class="container mb-5">
         <div class="row flex-wrap">
           <div class="col-md-4 mt-2">
-            <p class="lead text-center text-success">Nije potreban test</p>
+            <p class="lead text-center text-success">Nije potreban test <span class="badge badge-info" id="NO_TEST_REQUIRED_BADGE">0</span></p>
             <ul class="list-group" id="NO_TEST_REQUIRED"></ul>
           </div>
           <div class="col-md-4 mt-2">
-            <p class="lead text-center text-warning">Potreban negativan test</p>
+            <p class="lead text-center text-warning">Potreban negativan test <span class="badge badge-info" id="NEGATIVE_TEST_REQUIRED_BADGE">0</span></p>
             <ul class="list-group" id="NEGATIVE_TEST_REQUIRED"></ul>
           </div>
           <div class="col-md-4 mt-2">
-            <p class="lead text-center text-danger">Obavezan karantin</p>
+            <p class="lead text-center text-danger">Obavezan karantin <span class="badge badge-info" id="QUARANTINE_REQUIRED_BADGE">0</span></p>
             <ul class="list-group" id="QUARANTINE_REQUIRED"></ul>
           </div>
         </div>
