@@ -63,7 +63,7 @@ document.getElementById('input-search').addEventListener('input', (event) => {
     const [, ...name] = country.innerHTML.split(' ');
     const countryName = name.join(' ').toLowerCase();
 
-    if (countryName.startsWith(value.toLowerCase())) {
+    if (countryName.startsWith(value.toLowerCase().trim())) {
       country.parentElement.parentElement.style.display = '';
     } else {
       country.parentElement.parentElement.style.display = 'none';
