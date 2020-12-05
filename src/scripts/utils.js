@@ -1,15 +1,21 @@
 import { COUNTRY_TYPES } from './constants';
 
+const titleCase = (text) => text.split(' ').map((item) => {
+  if (item === 'I') return item.toLowerCase();
+  if (item === 'SAD') return item;
+  return item.charAt(0) + item.substring(1).toLowerCase();
+}).join(' ');
+
 export const loadCountries = async () => {
   try {
     const API_URL = process.env.API_URL || 'https://open-borders.herokuapp.com';
-    const countries = await fetch(`${API_URL}/api/countries`).then(response => response.json());
+    const countries = await fetch(`${API_URL}/api/countries`).then((response) => response.json());
     const groups = countries.reduce((acc, current) => {
       if (acc[current.status]) acc[current.status].push(current);
       else acc[current.status] = [current];
       return acc;
     }, {});
-    COUNTRY_TYPES.forEach(type => {
+    COUNTRY_TYPES.forEach((type) => {
       const countriesByType = document.getElementById(type);
       const countriesByTypeBadge = document.getElementById(`${type}_BADGE`);
       const countriesByTypeInfo = document.getElementById(`${type}_INFO`);
@@ -37,41 +43,8 @@ export const loadCountries = async () => {
   }
 };
 
-export const searchHandler = (event) => {
-  const value = event?.target?.value || event?.label;
-  if (!value) {
-    const countryList = document.querySelectorAll('.country');
-    for (const country of countryList.values()) {
-      country.parentElement.parentElement.style.display = '';
-    }
-    setCountryCounter();
-    setBorderTopClassForFirstCountryElement();
-    return;
-  }
-
-  const countryList = document.querySelectorAll('.country');
-  const countryDatalistSet = new Set();
-  for (const country of countryList.values()) {
-    const [, ...name] = country.innerHTML.split(' ');
-    const countryName = name.join(' ');
-    const countryNameStartsWithValue = countryName.toLowerCase()
-      .startsWith(value.toLowerCase().trim());
-
-    if (countryNameStartsWithValue) {
-      country.parentElement.parentElement.style.display = '';
-      countryDatalistSet.add(countryName);
-    } else {
-      country.parentElement.parentElement.style.display = 'none';
-    }
-  }
-
-  setCountryDatalist(countryDatalistSet);
-  setCountryCounter();
-  setBorderTopClassForFirstCountryElement();
-};
-
 const setBorderTopClassForFirstCountryElement = () => {
-  COUNTRY_TYPES.forEach(type => {
+  COUNTRY_TYPES.forEach((type) => {
     const [firstCountryTabElement, ...otherCountryTabElements] = [].filter
       .call(document.getElementById(`${type}_TAB`).children, (element) => element.style.display !== 'none');
     const [firstCountryElement, ...otherCountryElements] = [].filter
@@ -83,14 +56,14 @@ const setBorderTopClassForFirstCountryElement = () => {
     firstCountryElement.classList.add('border-top');
     const countryElements = [...otherCountryElements, ...otherCountryTabElements];
 
-    for (const countryElement of countryElements) {
+    countryElements.forEach((countryElement) => {
       countryElement.classList.remove('border-top');
-    }
+    });
   });
 };
 
 const setCountryCounter = () => {
-  COUNTRY_TYPES.forEach(type => {
+  COUNTRY_TYPES.forEach((type) => {
     const countriesByTypeCounter = [].filter
       .call(document.getElementById(type).children, (element) => element.style.display !== 'none')
       .length;
@@ -114,14 +87,41 @@ const setCountryDatalist = (countryDatalistSet) => {
     dropdownClass: 'dropdown-menu w-100',
     highlightClass: 'text-info',
     maximumItems: 0,
-    onSelectItem: searchHandler,
+    onSelectItem: searchHandler, // eslint-disable-line
     source: src,
     treshold: 1,
   });
 };
 
-const titleCase = (text) => text.split(' ').map(item => {
-  if (item === 'I') return item.toLowerCase();
-  if (item === 'SAD') return item;
-  return item.charAt(0) + item.substring(1).toLowerCase();
-}).join(' ');
+export const searchHandler = (event) => {
+  const value = event?.target?.value || event?.label;
+  const countryList = document.querySelectorAll('.country');
+  const countryListValues = countryList.values();
+  if (!value) {
+    countryListValues.forEach((country) => {
+      country.parentElement.parentElement.style.display = '';
+    });
+    setCountryCounter();
+    setBorderTopClassForFirstCountryElement();
+    return;
+  }
+
+  const countryDatalistSet = new Set();
+  countryListValues.forEach((country) => {
+    const [, ...name] = country.innerHTML.split(' ');
+    const countryName = name.join(' ');
+    const countryNameStartsWithValue = countryName.toLowerCase()
+      .startsWith(value.toLowerCase().trim());
+
+    if (countryNameStartsWithValue) {
+      country.parentElement.parentElement.style.display = '';
+      countryDatalistSet.add(countryName);
+    } else {
+      country.parentElement.parentElement.style.display = 'none';
+    }
+  });
+
+  setCountryDatalist(countryDatalistSet);
+  setCountryCounter();
+  setBorderTopClassForFirstCountryElement();
+};
