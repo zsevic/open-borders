@@ -52,6 +52,19 @@ export const loadCountries = async () => {
   }
 };
 
+const setActiveTab = () => {
+  for (let i = 0; i < COUNTRY_TYPES.length; i += 1) {
+    const type = COUNTRY_TYPES[i];
+    const countriesByTypeCounter = [].filter
+      .call(document.getElementById(`${type}_TAB`).children, (element) => element.style.display !== 'none')
+      .length;
+    if (countriesByTypeCounter !== 0 && document.getElementById(`${type}_TAB_LINK`).classList.contains('active')) return;
+    if (countriesByTypeCounter !== 0) {
+      return document.getElementById(`${type}_TAB_LINK`).click();
+    }
+  }
+};
+
 const setBorderTopClassForFirstCountryElement = () => {
   COUNTRY_TYPES.forEach((type) => {
     const [firstCountryTabElement, ...otherCountryTabElements] = [].filter
@@ -133,6 +146,7 @@ export const searchHandler = (event) => {
   });
 
   setCountryDatalist(countryDatalistSet);
+  setActiveTab();
   setCountryCounter();
   setBorderTopClassForFirstCountryElement();
 };

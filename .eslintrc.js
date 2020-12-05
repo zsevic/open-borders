@@ -12,6 +12,7 @@ module.exports = {
         "sourceType": "module"
     },
     "rules": {
+        'consistent-return': 'warn',
         'import/prefer-default-export': 'warn',
         'no-console': 'warn',
         'no-param-reassign': 'warn',
