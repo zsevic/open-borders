@@ -81,7 +81,10 @@ const setCountryCounter = () => {
 
 const setCountryDatalist = (countryDatalistSet) => {
   const src = Object.fromEntries(Array.from(countryDatalistSet)
-    .map((countryName, index) => [countryName, index + 1]));
+    .map((name, index) => {
+      const [countryName] = name.split(' (');
+      return [countryName, index + 1];
+    }));
 
   $('#input-search').autocomplete({
     dropdownClass: 'dropdown-menu w-100',
