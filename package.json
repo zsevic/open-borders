@@ -8,6 +8,7 @@
     "prebuild": "npm run clean",
     "build": "parcel build src/index.html --public-url /",
     "clean": "rimraf dist && rimraf .cache",
+    "predeploy": "npm run build && npm run add-domain",
     "deploy": "gh-pages -d dist",
     "dev": "NODE_ENV=development parcel src/index.html",
     "lint": "eslint src/scripts",
