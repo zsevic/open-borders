@@ -38,7 +38,7 @@ export const loadCountries = async () => {
 };
 
 export const searchHandler = (event) => {
-  const { value } = event.target;
+  const value = event?.target?.value || event?.label;
   if (!value) {
     const countryList = document.querySelectorAll('.country');
     for (const country of countryList.values()) {
@@ -50,16 +50,22 @@ export const searchHandler = (event) => {
   }
 
   const countryList = document.querySelectorAll('.country');
+  const countryDatalistSet = new Set();
   for (const country of countryList.values()) {
     const [, ...name] = country.innerHTML.split(' ');
-    const countryName = name.join(' ').toLowerCase();
+    const countryName = name.join(' ');
+    const countryNameStartsWithValue = countryName.toLowerCase()
+      .startsWith(value.toLowerCase().trim());
 
-    if (countryName.startsWith(value.toLowerCase().trim())) {
+    if (countryNameStartsWithValue) {
       country.parentElement.parentElement.style.display = '';
+      countryDatalistSet.add(countryName);
     } else {
       country.parentElement.parentElement.style.display = 'none';
     }
   }
+
+  setCountryDatalist(countryDatalistSet);
   setCountryCounter();
   setBorderTopClassForFirstCountryElement();
 };
@@ -98,7 +104,21 @@ const setCountryCounter = () => {
     countriesByTypeBadge.innerHTML = countriesByTypeCounter;
     countriesByTypeTabBadge.innerHTML = countriesByTypeCounter;
   });
-}
+};
+
+const setCountryDatalist = (countryDatalistSet) => {
+  const src = Object.fromEntries(Array.from(countryDatalistSet)
+    .map((countryName, index) => [countryName, index + 1]));
+
+  $('#input-search').autocomplete({
+    dropdownClass: 'dropdown-menu w-100',
+    highlightClass: 'text-info',
+    maximumItems: 0,
+    onSelectItem: searchHandler,
+    source: src,
+    treshold: 1,
+  });
+};
 
 const titleCase = (text) => text.split(' ').map(item => {
   if (item === 'I') return item.toLowerCase();
