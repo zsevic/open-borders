@@ -86,7 +86,7 @@ const setCountryDatalist = (countryDatalistSet) => {
   $('#input-search').autocomplete({
     dropdownClass: 'dropdown-menu w-100',
     highlightClass: 'text-info',
-    maximumItems: 0,
+    maximumItems: 5,
     onSelectItem: searchHandler, // eslint-disable-line
     source: src,
     treshold: 1,
