@@ -6,10 +6,18 @@ const titleCase = (text) => text.split(' ').map((item) => {
   return item.charAt(0) + item.substring(1).toLowerCase();
 }).join(' ');
 
+const hideLoader = () => {
+  const loader = document.getElementById('loader');
+  loader.innerHTML = '';
+};
+
 export const loadCountries = async () => {
   try {
     const API_URL = process.env.API_URL || 'https://open-borders.herokuapp.com';
     const countries = await fetch(`${API_URL}/api/countries`).then((response) => response.json());
+    if (countries.length > 0) {
+      hideLoader();
+    }
     const groups = countries.reduce((acc, current) => {
       if (acc[current.status]) acc[current.status].push(current);
       else acc[current.status] = [current];
@@ -40,6 +48,7 @@ export const loadCountries = async () => {
     });
   } catch (err) {
     console.error(err);
+    hideLoader();
   }
 };
 
