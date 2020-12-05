@@ -56,9 +56,9 @@ const setBorderTopClassForFirstCountryElement = () => {
     firstCountryElement.classList.add('border-top');
     const countryElements = [...otherCountryElements, ...otherCountryTabElements];
 
-    for (const countryElement of countryElements) {
+    countryElements.forEach((countryElement) => {
       countryElement.classList.remove('border-top');
-    }
+    });
   });
 };
 
@@ -95,19 +95,18 @@ const setCountryDatalist = (countryDatalistSet) => {
 
 export const searchHandler = (event) => {
   const value = event?.target?.value || event?.label;
+  const countryList = document.querySelectorAll('.country');
   if (!value) {
-    const countryList = document.querySelectorAll('.country');
-    for (const country of countryList.values()) {
+    countryList.forEach((country) => {
       country.parentElement.parentElement.style.display = '';
-    }
+    });
     setCountryCounter();
     setBorderTopClassForFirstCountryElement();
     return;
   }
 
-  const countryList = document.querySelectorAll('.country');
   const countryDatalistSet = new Set();
-  for (const country of countryList.values()) {
+  countryList.forEach((country) => {
     const [, ...name] = country.innerHTML.split(' ');
     const countryName = name.join(' ');
     const countryNameStartsWithValue = countryName.toLowerCase()
@@ -119,7 +118,7 @@ export const searchHandler = (event) => {
     } else {
       country.parentElement.parentElement.style.display = 'none';
     }
-  }
+  });
 
   setCountryDatalist(countryDatalistSet);
   setCountryCounter();
