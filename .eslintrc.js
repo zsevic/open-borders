@@ -13,7 +13,8 @@ module.exports = {
     },
     "rules": {
         'import/prefer-default-export': 'warn',
-        'no-param-reassign': 'warn',
         'no-console': 'warn',
+        'no-param-reassign': 'warn',
+        'no-restricted-syntax': 'warn',
     }
 };
