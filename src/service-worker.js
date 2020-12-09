@@ -1,14 +1,5 @@
-const cacheName = 'otvorene-granice';
-const filesToCache = ['/'];
-
-self.addEventListener('install', (e) => {
+self.addEventListener('install', () => {
   console.log('[ServiceWorker] Install');
-  e.waitUntil(
-    caches.open(cacheName).then((cache) => {
-      console.log('[ServiceWorker] Caching app shell');
-      return cache.addAll(filesToCache);
-    }),
-  );
 });
 
 self.addEventListener('activate', (event) => {
