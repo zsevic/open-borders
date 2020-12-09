@@ -16,5 +16,6 @@ module.exports = {
         'import/prefer-default-export': 'warn',
         'no-console': 'warn',
         'no-param-reassign': 'warn',
+        'no-restricted-globals': 'warn',
     }
 };
