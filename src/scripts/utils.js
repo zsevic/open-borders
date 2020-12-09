@@ -11,6 +11,17 @@ const hideLoader = () => {
   loader.innerHTML = '';
 };
 
+const isFacebookApp = () => {
+  const ua = navigator.userAgent || navigator.vendor || window.opera;
+  return (ua.indexOf('FBAN') > -1) || (ua.indexOf('FBAV') > -1);
+};
+
+export const adaptCSSFbBrowser = () => {
+  if (isFacebookApp()) {
+    $('.group-tabs').css('font-size', '12px');
+  }
+};
+
 export const loadCountries = async () => {
   try {
     const API_URL = process.env.API_URL || 'https://open-borders.herokuapp.com';
