@@ -6,7 +6,7 @@ const titleCase = (text) => text.split(' ').map((item) => {
   return item.charAt(0) + item.substring(1).toLowerCase();
 }).join(' ');
 
-const hideLoader = () => {
+export const hideLoader = () => {
   const loader = document.getElementById('loader');
   loader.innerHTML = '';
 };
@@ -22,45 +22,48 @@ export const adaptCSSFbBrowser = () => {
   }
 };
 
-export const loadCountries = async () => {
-  try {
-    const API_URL = process.env.API_URL || 'https://open-borders.herokuapp.com';
-    const countries = await fetch(`${API_URL}/api/countries`).then((response) => response.json());
-    if (countries.length > 0) {
-      hideLoader();
-    }
-    const groups = countries.reduce((acc, current) => {
-      if (acc[current.status]) acc[current.status].push(current);
-      else acc[current.status] = [current];
-      return acc;
-    }, {});
-    COUNTRY_TYPES.forEach((type) => {
-      const countriesByType = document.getElementById(type);
-      const countriesByTypeBadge = document.getElementById(`${type}_BADGE`);
-      const countriesByTypeInfo = document.getElementById(`${type}_INFO`);
-      const countriesByTypeTab = document.getElementById(`${type}_TAB`);
-      const countriesByTypeTabBadge = document.getElementById(`${type}_TAB_BADGE`);
-      const countriesByTypeTabInfo = document.getElementById(`${type}_TAB_INFO`);
-      groups[type]?.forEach(({ name: countryName, info: countryInfo, flag }) => {
-        const countryHtml = `<div class="list-group-item list-group-item-action flex-column align-items-start">
-        <div class="d-flex w-100 justify-content-between">
-          <h5 class="mb-1 text-info country">${flag} ${titleCase(countryName)}</h5>
-          </div>
-          <p class="mb-1 text-muted" style="word-wrap:break-word">${countryInfo}</p></div>`;
-        countriesByType.innerHTML += countryHtml;
-        countriesByTypeTab.innerHTML += countryHtml;
-      });
-      const { length } = groups[type];
-      const countriesByTypeStyleDisplay = length > 0 ? 'none' : '';
-      countriesByTypeInfo.style.display = countriesByTypeStyleDisplay;
-      countriesByTypeTabInfo.style.display = countriesByTypeStyleDisplay;
-      countriesByTypeBadge.innerHTML = length;
-      countriesByTypeTabBadge.innerHTML = length;
+export const loadCountriesHtml = (countries) => {
+  if (countries.length === 0) return;
+
+  hideLoader();
+  const groups = countries.reduce((acc, current) => {
+    if (acc[current.status]) acc[current.status].push(current);
+    else acc[current.status] = [current];
+    return acc;
+  }, {});
+  COUNTRY_TYPES.forEach((type) => {
+    const countriesByType = document.getElementById(type);
+    const countriesByTypeBadge = document.getElementById(`${type}_BADGE`);
+    const countriesByTypeInfo = document.getElementById(`${type}_INFO`);
+    const countriesByTypeTab = document.getElementById(`${type}_TAB`);
+    const countriesByTypeTabBadge = document.getElementById(`${type}_TAB_BADGE`);
+    const countriesByTypeTabInfo = document.getElementById(`${type}_TAB_INFO`);
+    groups[type]?.forEach(({ name: countryName, info: countryInfo, flag }) => {
+      const countryHtml = `<div class="list-group-item list-group-item-action flex-column align-items-start">
+      <div class="d-flex w-100 justify-content-between">
+        <h5 class="mb-1 text-info country">${flag} ${titleCase(countryName)}</h5>
+        </div>
+        <p class="mb-1 text-muted" style="word-wrap:break-word">${countryInfo}</p></div>`;
+      countriesByType.innerHTML += countryHtml;
+      countriesByTypeTab.innerHTML += countryHtml;
     });
-  } catch (err) {
-    console.error(err);
-    hideLoader();
-  }
+    const { length } = groups[type];
+    const countriesByTypeStyleDisplay = length > 0 ? 'none' : '';
+    countriesByTypeInfo.style.display = countriesByTypeStyleDisplay;
+    countriesByTypeTabInfo.style.display = countriesByTypeStyleDisplay;
+    countriesByTypeBadge.innerHTML = length;
+    countriesByTypeTabBadge.innerHTML = length;
+  });
+};
+
+export const resetCountriesHtml = () => {
+  COUNTRY_TYPES.forEach((type) => {
+    const countriesByType = document.getElementById(type);
+    const countriesByTypeTab = document.getElementById(`${type}_TAB`);
+
+    countriesByType.innerHTML = '';
+    countriesByTypeTab.innerHTML = '';
+  });
 };
 
 const setActiveTab = () => {
