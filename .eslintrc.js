@@ -17,5 +17,6 @@ module.exports = {
         'no-console': 'warn',
         'no-param-reassign': 'warn',
         'no-restricted-globals': 'warn',
+        'no-undef': 'warn',
     }
 };

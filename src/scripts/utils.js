@@ -144,6 +144,14 @@ export const searchHandler = (event) => {
     return;
   }
 
+  if (event.label && process.env.NODE_ENV !== 'development') {
+    gtag('event', 'click', {
+      event_category: 'chosen_country',
+      event_label: 'country',
+      value: event.label,
+    });
+  }
+
   const countryDatalistSet = new Set();
   countryList.forEach((country) => {
     const [, ...name] = country.innerHTML.split(' ');
