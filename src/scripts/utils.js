@@ -133,7 +133,8 @@ const setCountryDatalist = (countryDatalistSet) => {
 };
 
 export const searchHandler = (event) => {
-  const value = event?.target?.value || event?.label;
+  const chosenCountry = event?.label;
+  const value = event?.target?.value || chosenCountry;
   const countryList = document.querySelectorAll('.country');
   if (!value) {
     countryList.forEach((country) => {
@@ -144,11 +145,11 @@ export const searchHandler = (event) => {
     return;
   }
 
-  if (event.label && process.env.NODE_ENV !== 'development') {
+  if (chosenCountry && process.env.NODE_ENV !== 'development') {
     gtag('event', 'click', {
       event_category: 'chosen_country',
       event_label: 'country',
-      value: event.label,
+      value: chosenCountry,
     });
   }
 
@@ -160,15 +161,19 @@ export const searchHandler = (event) => {
       .startsWith(value.toLowerCase().trim());
 
     if (countryNameStartsWithValue) {
-      country.parentElement.parentElement.style.display = '';
+      if (chosenCountry) {
+        country.parentElement.parentElement.style.display = '';
+      }
       countryDatalistSet.add(countryName);
-    } else {
+    } else if (chosenCountry) {
       country.parentElement.parentElement.style.display = 'none';
     }
   });
 
   setCountryDatalist(countryDatalistSet);
-  setActiveTab();
+  if (chosenCountry) {
+    setActiveTab();
+  }
   setCountryCounter();
   setBorderTopClassForFirstCountryElement();
 };
