@@ -16,8 +16,10 @@ const isFacebookApp = () => {
   return (ua.indexOf('FBAN') > -1) || (ua.indexOf('FBAV') > -1);
 };
 
-export const adaptCSSFbBrowser = () => {
-  if (isFacebookApp()) {
+const isInstagramApp = () => navigator.userAgent.match(/instagram/i);
+
+export const adaptCSSBrowser = () => {
+  if (isFacebookApp() || isInstagramApp()) {
     $('.group-tabs').css('font-size', '12px');
   }
 };

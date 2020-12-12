@@ -1,12 +1,12 @@
 import isEqual from 'lodash.isequal';
 import { idbRepository } from './database';
 import {
-  adaptCSSFbBrowser, getAllCountries, hideLoader, loadCountriesHtml,
+  adaptCSSBrowser, getAllCountries, hideLoader, loadCountriesHtml,
   resetCountriesHtml, searchHandler,
 } from './utils';
 
 document.getElementById('input-search').addEventListener('input', searchHandler);
-adaptCSSFbBrowser();
+adaptCSSBrowser();
 
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
