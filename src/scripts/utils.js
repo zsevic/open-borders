@@ -147,9 +147,8 @@ export const searchHandler = (event) => {
 
   if (chosenCountry && process.env.NODE_ENV !== 'development') {
     gtag('event', 'click', {
-      event_category: 'chosen_country',
-      event_label: 'country',
-      value: chosenCountry,
+      event_category: 'country',
+      event_label: chosenCountry,
     });
   }
 
