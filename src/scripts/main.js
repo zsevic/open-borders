@@ -1,7 +1,8 @@
 import isEqual from 'lodash.isequal';
 import { idbRepository } from './database';
 import {
-  adaptCSSFbBrowser, hideLoader, loadCountriesHtml, resetCountriesHtml, searchHandler,
+  adaptCSSFbBrowser, getAllCountries, hideLoader, loadCountriesHtml,
+  resetCountriesHtml, searchHandler,
 } from './utils';
 
 document.getElementById('input-search').addEventListener('input', searchHandler);
@@ -14,6 +15,13 @@ if ('serviceWorker' in navigator) {
     });
   });
 }
+
+$('#btn-clear').on('click', () => {
+  $('#input-search').val('');
+
+  const countryList = document.querySelectorAll('.country');
+  return getAllCountries(countryList);
+});
 
 idbRepository.get('countries')
   .then(async (countries = []) => {

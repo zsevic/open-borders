@@ -132,18 +132,23 @@ const setCountryDatalist = (countryDatalistSet) => {
   });
 };
 
+export const getAllCountries = (countryList) => {
+  countryList.forEach((country) => {
+    country.parentElement.parentElement.style.display = '';
+  });
+  setCountryCounter();
+  setBorderTopClassForFirstCountryElement();
+  $('#btn-clear').hide();
+};
+
 export const searchHandler = (event) => {
   const chosenCountry = event?.label;
   const value = event?.target?.value || chosenCountry;
   const countryList = document.querySelectorAll('.country');
   if (!value) {
-    countryList.forEach((country) => {
-      country.parentElement.parentElement.style.display = '';
-    });
-    setCountryCounter();
-    setBorderTopClassForFirstCountryElement();
-    return;
+    return getAllCountries(countryList);
   }
+  $('#btn-clear').show();
 
   if (chosenCountry && process.env.NODE_ENV !== 'development') {
     gtag('event', 'click', {
