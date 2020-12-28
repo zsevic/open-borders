@@ -8,3 +8,4 @@ export const COUNTRY_TYPES = [CLOSED_BORDER, NEGATIVE_TEST_REQUIRED,
 
 export const OBJECT_STORE = 'otvorene-granice';
 export const IDB_DATABASE_NAME = `${OBJECT_STORE}-store`;
+export const IDB_DATABASE_VERSION = 1;
