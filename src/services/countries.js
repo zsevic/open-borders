@@ -33,24 +33,24 @@ export const getGroupedCountries = (countries) =>
     return groupedCountries;
   }, {});
 
-export const loadCountriesData = async (setCountriesHook) => {
+export const loadCountriesList = async (setGroupedCountriesHook) => {
   try {
-    const countriesIdbData = await idbRepository.get('countries');
-    if (countriesIdbData && countriesIdbData.length !== 0) {
-      setCountriesHook(getGroupedCountries(countriesIdbData));
+    const countriesIdbList = await idbRepository.get('countries');
+    if (countriesIdbList && countriesIdbList.length !== 0) {
+      setGroupedCountriesHook(getGroupedCountries(countriesIdbList));
     }
 
-    const countriesData = await getCountries();
-    if (countriesData.length === 0) return countriesIdbData || [];
+    const countriesList = await getCountries();
+    if (countriesList.length === 0) return countriesIdbList || [];
 
-    if (!isEqual(countriesData, countriesIdbData)) {
-      setCountriesHook(getGroupedCountries(countriesData));
-      await idbRepository.set('countries', countriesData);
+    if (!isEqual(countriesList, countriesIdbList)) {
+      setGroupedCountriesHook(getGroupedCountries(countriesList));
+      await idbRepository.set('countries', countriesList);
       console.log('IndexedDB data is updated');
-      return countriesData;
+      return countriesList;
     }
 
-    return countriesIdbData;
+    return countriesIdbList;
   } catch (err) {
     console.error(err.message);
   }

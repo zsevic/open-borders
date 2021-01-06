@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PropTypes from 'prop-types';
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { Button, ListGroup } from 'react-bootstrap';
 import CountryElement from 'components/Countries/CountryElement';
 import { COUNTRY_LIST_LIMIT as LIMIT } from 'constants/countries';
@@ -12,16 +12,19 @@ export default function CountryList({ countries, length }) {
   const [list, setList] = useState(countries.slice(0, LIMIT));
   const [index, setIndex] = useState(LIMIT);
 
-  const loadMore = () => {
+  const loadMore = useCallback(() => {
     const newIndex = index + LIMIT;
     const newShowMore = newIndex < length - 1;
     const newList = list.concat(countries.slice(index, newIndex));
     setIndex(newIndex);
     setList(newList);
     setShowMore(newShowMore);
-  };
+  }, [countries, index, length, list]);
 
-  const handleSearchMore = () => eventBus.dispatch('search-more');
+  const handleSearchMore = useCallback(
+    () => eventBus.dispatch('search-more'),
+    [],
+  );
 
   return (
     <ListGroup>

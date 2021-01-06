@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PropTypes from 'prop-types';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { Form, InputGroup } from 'react-bootstrap';
 import { Hint, Typeahead } from 'react-bootstrap-typeahead';
 import ReactGA from 'react-ga';
@@ -10,46 +10,52 @@ import { countriesPropType } from 'utils/prop-types';
 
 export default function SearchBar({
   countries,
-  filterCountriesData,
+  filterCountriesList,
   showAllCountries,
 }) {
   const [showClearButton, setShowClearButton] = useState(false);
   const typeaheadRef = useRef(null);
 
-  const handleChange = (selected) => {
-    if (selected[0]?.name) {
-      filterCountriesData(selected[0].name);
-      setShowClearButton(true);
-      if (process.env.NODE_ENV !== 'development') {
-        ReactGA.event({
-          action: 'click',
-          category: 'country',
-          label: selected[0].name,
-        });
+  const handleChange = useCallback(
+    (selected) => {
+      if (selected[0]?.name) {
+        filterCountriesList(selected[0].name);
+        setShowClearButton(true);
+        if (process.env.NODE_ENV !== 'development') {
+          ReactGA.event({
+            action: 'click',
+            category: 'country',
+            label: selected[0].name,
+          });
+        }
+        eventBus.dispatch('selected-country', { group: selected[0].status });
       }
-      eventBus.dispatch('selected-country', { group: selected[0].status });
-    }
-  };
+    },
+    [filterCountriesList],
+  );
 
-  const handleInputChange = (text) => {
-    if (!text) {
-      showAllCountries();
-      setShowClearButton(false);
-    }
-    if (!showClearButton) {
-      setShowClearButton(true);
-    }
-  };
+  const handleInputChange = useCallback(
+    (text) => {
+      if (!text) {
+        showAllCountries();
+        setShowClearButton(false);
+      }
+      if (!showClearButton) {
+        setShowClearButton(true);
+      }
+    },
+    [showAllCountries, showClearButton],
+  );
 
-  const handleClear = () => {
+  const handleClear = useCallback(() => {
     typeaheadRef.current.clear();
     setShowClearButton(false);
     showAllCountries();
-  };
+  }, [showAllCountries]);
 
-  const handleSearchButton = () => {
+  const handleSearchButton = useCallback(() => {
     typeaheadRef.current.focus();
-  };
+  }, []);
 
   useEffect(
     () => eventBus.on('search-more', () => typeaheadRef.current.focus()),
@@ -103,6 +109,6 @@ export default function SearchBar({
 
 SearchBar.propTypes = {
   countries: countriesPropType,
-  filterCountriesData: PropTypes.func.isRequired,
+  filterCountriesList: PropTypes.func.isRequired,
   showAllCountries: PropTypes.func.isRequired,
 };

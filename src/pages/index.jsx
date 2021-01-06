@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import CommonHead from 'components/CommonHead';
 import DesktopResults from 'components/DesktopResults';
 import Header from 'components/Header';
@@ -14,31 +14,37 @@ import {
 import * as countriesService from 'services/countries';
 
 export default function HomePage() {
-  const [countries, setCountries] = useState({});
-  const [countriesData, setCountriesData] = useState([]);
+  const [groupedCountries, setGroupedCountries] = useState({});
+  const [countriesList, setCountriesList] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     countriesService
-      .loadCountriesData(setCountries)
-      .then((loadedCountriesData) => {
+      .loadCountriesList(setGroupedCountries)
+      .then((loadedCountriesList) => {
         setLoading(false);
-        setCountriesData(loadedCountriesData);
+        setCountriesList(loadedCountriesList);
       });
   }, []);
 
-  const filterCountriesData = (name) => {
-    const filteredCountriesData = countriesData.filter(
-      (country) => country.name === name,
-    );
-    const groupedCountries = countriesService.getGroupedCountries(
-      filteredCountriesData,
-    );
-    setCountries(groupedCountries);
-  };
+  const filterCountriesList = useCallback(
+    (name) => {
+      const filteredCountriesList = countriesList.filter(
+        (country) => country.name === name,
+      );
+      const countries = countriesService.getGroupedCountries(
+        filteredCountriesList,
+      );
+      setGroupedCountries(countries);
+    },
+    [countriesList],
+  );
 
-  const showAllCountries = () =>
-    setCountries(countriesService.getGroupedCountries(countriesData));
+  const showAllCountries = useCallback(
+    () =>
+      setGroupedCountries(countriesService.getGroupedCountries(countriesList)),
+    [countriesList],
+  );
 
   return (
     <div className="mb-4">
@@ -72,12 +78,12 @@ export default function HomePage() {
       </Head>
       <Header />
       <SearchBar
-        countries={countriesData}
-        filterCountriesData={filterCountriesData}
+        countries={countriesList}
+        filterCountriesList={filterCountriesList}
         showAllCountries={showAllCountries}
       />
-      <MobileResults groupedCountries={countries} />
-      <DesktopResults groupedCountries={countries} />
+      <MobileResults groupedCountries={groupedCountries} />
+      <DesktopResults groupedCountries={groupedCountries} />
       {loading && <Loader />}
     </div>
   );
