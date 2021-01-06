@@ -5,21 +5,14 @@ import PropTypes from 'prop-types';
 import React, { useEffect } from 'react';
 import ReactGA from 'react-ga';
 import { GOOGLE_ANALYTICS_TRACKING_ID } from 'constants/config';
+import { registerServiceWorker } from 'services/service-worker-registration';
 
 if (process.env.NODE_ENV !== 'development') {
   ReactGA.initialize(GOOGLE_ANALYTICS_TRACKING_ID);
 }
 
 function App({ Component, pageProps }) {
-  useEffect(() => {
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/service-worker.js').then(() => {
-          console.log('Service worker is registered!');
-        });
-      });
-    }
-  });
+  useEffect(() => registerServiceWorker(), []);
 
   return <Component {...pageProps} />;
 }
