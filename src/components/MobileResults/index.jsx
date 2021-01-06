@@ -9,6 +9,7 @@ import {
   NO_TEST_REQUIRED,
   QUARANTINE_REQUIRED,
 } from 'constants/countries';
+import { getCountriesCounter } from 'services/countries';
 import eventBus from 'utils/event-bus';
 import { isInAppBrowser } from 'utils/in-app-browser';
 import { groupedCountriesPropType } from 'utils/prop-types';
@@ -66,20 +67,23 @@ export default function MobileResults({ groupedCountries }) {
         activeKey={key}
         onSelect={(k) => setKey(k)}
         className="nav nav-tabs nav-fill mb-3 bg-tabs">
-        {tabs.map((tab) => (
-          <Tab
-            key={groupKeys[tab.group]}
-            eventKey={groupKeys[tab.group]}
-            title={
-              <MobileTabTitle
-                title={tab.title}
-                countries={groupedCountries[tab.group]}
-              />
-            }
-            tabClassName={mobileTabClass}>
-            <GroupResults countries={groupedCountries[tab.group]} />
-          </Tab>
-        ))}
+        {tabs.map(
+          (tab) =>
+            getCountriesCounter(groupedCountries[tab.group]) > 0 && (
+              <Tab
+                key={groupKeys[tab.group]}
+                eventKey={groupKeys[tab.group]}
+                title={
+                  <MobileTabTitle
+                    title={tab.title}
+                    countries={groupedCountries[tab.group]}
+                  />
+                }
+                tabClassName={mobileTabClass}>
+                <GroupResults countries={groupedCountries[tab.group]} />
+              </Tab>
+            ),
+        )}
       </Tabs>
     </div>
   );
