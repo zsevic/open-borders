@@ -9,10 +9,6 @@ class CustomDocument extends Document {
           <link rel="icon" href="/favicon.ico" />
           <link rel="apple-touch-icon" href="/icons/icon-192x192.png" />
           <link rel="manifest" href="/manifest.json" />
-          <link
-            rel="stylesheet"
-            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
-          />
         </Head>
         <body>
           <Main />

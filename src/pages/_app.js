@@ -6,7 +6,10 @@ import React, { useEffect } from 'react';
 import ReactGA from 'react-ga';
 import { GOOGLE_ANALYTICS_TRACKING_ID } from 'constants/config';
 import { registerServiceWorker } from 'services/service-worker-registration';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faSearch, faTimes } from '@fortawesome/free-solid-svg-icons';
 
+library.add(faSearch, faTimes);
 if (process.env.NODE_ENV !== 'development') {
   ReactGA.initialize(GOOGLE_ANALYTICS_TRACKING_ID);
 }

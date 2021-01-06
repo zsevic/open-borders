@@ -1,3 +1,4 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PropTypes from 'prop-types';
 import React, { createRef, useState } from 'react';
 import { Form, InputGroup } from 'react-bootstrap';
@@ -73,13 +74,13 @@ export default function SearchBar({
                 {!!showClearButton && (
                   <InputGroup id="clear-btn" onClick={handleClear}>
                     <span className="btn text-info shadow-none">
-                      <i className="fa fa-times"></i>
+                      <FontAwesomeIcon icon="times" />
                     </span>
                   </InputGroup>
                 )}
                 <InputGroup id="search-btn" onClick={handleSearchButton}>
                   <span className="btn text-info shadow-none">
-                    <i className="fa fa-search"></i>
+                    <FontAwesomeIcon icon="search" />
                   </span>
                 </InputGroup>
               </InputGroup.Append>
