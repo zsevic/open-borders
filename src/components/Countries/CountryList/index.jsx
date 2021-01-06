@@ -26,14 +26,20 @@ export default function CountryList({ countries, length }) {
       {list.map((country) => (
         <CountryElement key={country.flag} country={country} />
       ))}
-      {showMore && (
-        <Button
-          variant="info"
-          className="mt-2 load-more-btn"
-          onClick={loadMore}>
-          <FontAwesomeIcon icon="arrow-circle-down" color="white" /> Učitaj još
+      <div className="my-2 d-flex">
+        {showMore && (
+          <Button
+            variant="info"
+            className="load-more-btn mx-auto"
+            onClick={loadMore}>
+            <FontAwesomeIcon icon="arrow-circle-down" color="white" /> Učitaj
+            još
+          </Button>
+        )}
+        <Button variant="info" className="scroll-up-btn mx-auto" href="#logo">
+          <FontAwesomeIcon icon="arrow-circle-up" color="white" /> Vrati se
         </Button>
-      )}
+      </div>
     </ListGroup>
   );
 }

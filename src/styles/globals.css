@@ -14,7 +14,8 @@ a:link {
   outline: 0;
 }
 
-.load-more-btn:focus {
+.load-more-btn:focus,
+.scroll-up-btn {
   box-shadow: 0 0 0 0;
 }
 

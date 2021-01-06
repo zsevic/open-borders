@@ -6,6 +6,7 @@ import {
   faSearch,
   faTimes,
   faArrowCircleDown,
+  faArrowCircleUp,
 } from '@fortawesome/free-solid-svg-icons';
 import PropTypes from 'prop-types';
 import React, { useEffect } from 'react';
@@ -13,7 +14,7 @@ import ReactGA from 'react-ga';
 import { GOOGLE_ANALYTICS_TRACKING_ID } from 'constants/config';
 import { registerServiceWorker } from 'services/service-worker-registration';
 
-library.add(faArrowCircleDown, faSearch, faTimes);
+library.add(faArrowCircleDown, faArrowCircleUp, faSearch, faTimes);
 if (process.env.NODE_ENV !== 'development') {
   ReactGA.initialize(GOOGLE_ANALYTICS_TRACKING_ID);
 }
