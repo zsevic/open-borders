@@ -32,24 +32,27 @@ export default function MobileResults({ groupedCountries }) {
     }),
     [],
   );
-  const tabs = [
-    {
-      group: NO_TEST_REQUIRED,
-      title: 'Ne treba test',
-    },
-    {
-      group: NEGATIVE_TEST_REQUIRED,
-      title: 'Potreban test',
-    },
-    {
-      group: QUARANTINE_REQUIRED,
-      title: 'Karantin',
-    },
-    {
-      group: CLOSED_BORDER,
-      title: 'Zatvorene granice',
-    },
-  ];
+  const tabs = useMemo(
+    () => [
+      {
+        group: NO_TEST_REQUIRED,
+        title: 'Ne treba test',
+      },
+      {
+        group: NEGATIVE_TEST_REQUIRED,
+        title: 'Potreban test',
+      },
+      {
+        group: QUARANTINE_REQUIRED,
+        title: 'Karantin',
+      },
+      {
+        group: CLOSED_BORDER,
+        title: 'Zatvorene granice',
+      },
+    ],
+    [],
+  );
 
   useEffect(() => {
     eventBus.on('selected-country', (data) => {
