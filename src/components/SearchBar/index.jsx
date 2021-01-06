@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PropTypes from 'prop-types';
-import React, { createRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Form, InputGroup } from 'react-bootstrap';
 import { Hint, Typeahead } from 'react-bootstrap-typeahead';
 import ReactGA from 'react-ga';
@@ -14,7 +14,7 @@ export default function SearchBar({
   showAllCountries,
 }) {
   const [showClearButton, setShowClearButton] = useState(false);
-  const typeaheadRef = createRef();
+  const typeaheadRef = useRef(null);
 
   const handleChange = (selected) => {
     if (selected[0]?.name) {
@@ -50,6 +50,11 @@ export default function SearchBar({
   const handleSearchButton = () => {
     typeaheadRef.current.focus();
   };
+
+  useEffect(
+    () => eventBus.on('search-more', () => typeaheadRef.current.focus()),
+    [],
+  );
 
   return (
     <InputGroup className="mb-3 mt-4 border rounded-pill p-2 w-75 mx-auto">

@@ -6,7 +6,7 @@ export default function Logo() {
   return (
     <div className="d-flex justify-content-center mt-2">
       <Link href="/">
-        <a style={{ cursor: 'pointer' }}>
+        <a style={{ cursor: 'pointer' }} id="logo">
           <Image
             src="/assets/logo-main.png"
             width="190"
