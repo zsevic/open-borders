@@ -41,7 +41,7 @@ export default function HomePage() {
     setCountries(countriesService.getGroupedCountries(countriesData));
 
   return (
-    <div>
+    <div className="mb-4">
       <CommonHead />
       <Head>
         <meta name="description" content={HOMEPAGE_META_DESCRIPTION} />

@@ -6,7 +6,7 @@ import {
   QUARANTINE_REQUIRED,
 } from 'constants/countries';
 
-const countryPropType = PropTypes.shape({
+export const countryPropType = PropTypes.shape({
   flag: PropTypes.string.isRequired,
   info: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,

@@ -14,6 +14,7 @@
     "classnames": "^2.2.6",
     "html-to-react": "^1.4.5",
     "idb": "^5.0.8",
+    "lodash": "^4.17.20",
     "lodash.isequal": "^4.5.0",
     "next": "^10.0.4",
     "prop-types": "^15.7.2",

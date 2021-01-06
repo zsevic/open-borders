@@ -1,5 +1,5 @@
 import classnames from 'classnames';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { Tabs, Tab } from 'react-bootstrap';
 import GroupResults from 'components/GroupResults';
 import MobileTabTitle from 'components/MobileTabTitle';
@@ -22,12 +22,15 @@ export default function MobileResults({ groupedCountries }) {
     'in-app-browser-tabs': inAppBrowser,
   });
   const [key, setKey] = useState('home');
-  const groupKeys = {
-    [NO_TEST_REQUIRED]: 'home',
-    [NEGATIVE_TEST_REQUIRED]: 'menu1',
-    [QUARANTINE_REQUIRED]: 'menu2',
-    [CLOSED_BORDER]: 'menu3',
-  };
+  const groupKeys = useMemo(
+    () => ({
+      [NO_TEST_REQUIRED]: 'home',
+      [NEGATIVE_TEST_REQUIRED]: 'menu1',
+      [QUARANTINE_REQUIRED]: 'menu2',
+      [CLOSED_BORDER]: 'menu3',
+    }),
+    [],
+  );
   const tabs = [
     {
       group: NO_TEST_REQUIRED,
@@ -55,7 +58,7 @@ export default function MobileResults({ groupedCountries }) {
       setInAppBrowser(true);
     }
     return () => eventBus.remove('selected-country');
-  });
+  }, [groupKeys]);
 
   return (
     <div className="container d-block d-lg-none mt-3">
