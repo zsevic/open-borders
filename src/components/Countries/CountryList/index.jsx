@@ -1,25 +1,27 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { concat, slice } from 'lodash';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import { Button, ListGroup } from 'react-bootstrap';
 import CountryElement from 'components/Countries/CountryElement';
 import { COUNTRY_LIST_LIMIT as LIMIT } from 'constants/countries';
+import eventBus from 'utils/event-bus';
 import { countriesPropType } from 'utils/prop-types';
 
 export default function CountryList({ countries, length }) {
   const [showMore, setShowMore] = useState(true);
-  const [list, setList] = useState(slice(countries, 0, LIMIT));
+  const [list, setList] = useState(countries.slice(0, LIMIT));
   const [index, setIndex] = useState(LIMIT);
 
   const loadMore = () => {
     const newIndex = index + LIMIT;
     const newShowMore = newIndex < length - 1;
-    const newList = concat(list, slice(countries, index, newIndex));
+    const newList = list.concat(countries.slice(index, newIndex));
     setIndex(newIndex);
     setList(newList);
     setShowMore(newShowMore);
   };
+
+  const handleSearchMore = () => eventBus.dispatch('search-more');
 
   return (
     <ListGroup>
@@ -36,7 +38,10 @@ export default function CountryList({ countries, length }) {
             još
           </Button>
         )}
-        <Button variant="info" className="scroll-up-btn mx-auto" href="#logo">
+        <Button
+          variant="info"
+          className="scroll-up-btn mx-auto"
+          onClick={handleSearchMore}>
           <FontAwesomeIcon icon="arrow-circle-up" color="white" /> Pretraži još
         </Button>
       </div>
