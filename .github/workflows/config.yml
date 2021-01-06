@@ -3,7 +3,7 @@ name: Github CI
 on:
   push:
     branches:
-      - master
+      - '*'
 
 jobs:
   lint-test-audit:
@@ -28,32 +28,4 @@ jobs:
 
       - run: npm test
 
-      - run: npm audit --audit-level=critical
-
-  build-deploy:
-    needs: lint-test-audit
-    runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [14.x]
-
-    steps:
-      - name: Github checkout
-        uses: actions/checkout@v2.3.1
-        with:
-          persist-credentials: false
-
-      - name: Install, build and add the domain
-        run: |
-          npm ci
-          npm run build
-          npm run add-domain
-
-      - name: Deploy
-        uses: JamesIves/github-pages-deploy-action@3.7.1
-        with:
-          GITHUB_TOKEN: ${{secrets.GH_TOKEN}}
-          BRANCH: gh-pages
-          FOLDER: dist
-          CLEAN: true
+      - run: npm audit

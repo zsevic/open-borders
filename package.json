@@ -1,67 +1,76 @@
 {
   "name": "open-borders",
-  "version": "1.0.0",
-  "description": "Open borders (regarding COVID-19 restrictions) for Serbian citizens",
-  "main": "script.js",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@testing-library/jest-dom": "^5.11.4",
+    "@testing-library/react": "^11.1.0",
+    "@testing-library/user-event": "^12.1.10",
+    "axios": "^0.21.1",
+    "bootstrap": "^4.5.3",
+    "classnames": "^2.2.6",
+    "html-to-react": "^1.4.5",
+    "idb": "^5.0.8",
+    "lodash.isequal": "^4.5.0",
+    "next": "^10.0.4",
+    "prop-types": "^15.7.2",
+    "react": "^17.0.1",
+    "react-bootstrap": "^1.4.0",
+    "react-bootstrap-typeahead": "^5.1.4",
+    "react-dom": "^17.0.1",
+    "react-ga": "^3.3.0",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "^4.0.1",
+    "web-vitals": "^0.2.4"
+  },
   "scripts": {
-    "add-domain": "echo \"otvorene-granice.com\" > dist/CNAME",
     "prebuild": "npm run clean",
-    "build": "parcel build src/index.html --public-url /",
-    "clean": "rimraf dist && rimraf .cache",
-    "predeploy": "npm run build && npm run add-domain",
-    "deploy": "gh-pages -d dist",
-    "dev": "NODE_ENV=development parcel src/index.html",
-    "lint": "eslint src/scripts",
+    "build": "next build",
+    "clean": "rimraf .next",
+    "dev": "next dev -p 1234",
+    "format": "prettier --write \"src/**/*.{js,jsx}\"",
+    "lint": "eslint \"src/**/*.{js,jsx}\"",
     "lint:fix": "npm run lint -- --fix",
+    "start": "next start -p 1234",
     "test": "jest --passWithNoTests"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/zsevic/open-borders.git"
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/zsevic/open-borders/issues"
-  },
-  "homepage": "https://github.com/zsevic/open-borders#readme",
   "devDependencies": {
-    "eslint": "^7.14.0",
-    "eslint-config-airbnb-base": "^14.2.1",
+    "babel-eslint": "^10.1.0",
+    "eslint": "^7.16.0",
+    "eslint-config-prettier": "^7.1.0",
     "eslint-plugin-import": "^2.22.1",
-    "gh-pages": "^3.1.0",
-    "husky": "^4.3.0",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-prettier": "^3.3.0",
+    "eslint-plugin-react": "^7.22.0",
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "husky": "^4.3.6",
     "jest": "^26.6.3",
     "lint-staged": "^10.5.3",
-    "parcel-bundler": "^1.12.4",
-    "parcel-plugin-static-files-copy": "^2.5.0",
+    "prettier": "^2.2.1",
     "rimraf": "^3.0.2"
   },
-  "browserslist": [
-    "since 2017-06"
-  ],
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged"
     }
   },
   "lint-staged": {
-    "src/scripts/*.js": [
+    "src/**/*.{js,jsx}": [
+      "npm run format",
       "npm run lint:fix",
       "git add --force"
     ]
-  },
-  "staticFiles": {
-    "staticPath": [
-      {
-        "staticPath": "src/assets",
-        "staticOutDir": "assets/"
-      }
-    ]
-  },
-  "dependencies": {
-    "idb": "^5.0.8",
-    "lodash.isequal": "^4.5.0"
   }
 }

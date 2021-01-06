@@ -1,0 +1,48 @@
+:root {
+  --main-gray: #f0f0f0;
+}
+
+.bg-tabs {
+  background: var(--main-gray);
+}
+
+.in-app-browser-tabs {
+  font-size: 12px;
+}
+
+a:link {
+  outline: 0;
+}
+
+/* react-bootstrap-typeahead */
+.form-control:focus {
+  box-shadow: 0 0 0 0;
+}
+
+.form-control {
+  border-width: 0;
+}
+
+.dropdown-item.active,
+.dropdown-item:active {
+  color: initial;
+  background-color: var(--main-gray);
+}
+
+.close,
+.close:hover {
+  color: var(--info);
+  opacity: 1 !important;
+  font-weight: 600;
+}
+
+.close:active,
+.close:focus {
+  outline: 0;
+}
+
+.rbt-highlight-text {
+  font-weight: normal;
+  color: var(--info);
+}
+/* react-bootstrap-typeahead */
