@@ -37,7 +37,7 @@ export default function CountryList({ countries, length }) {
           </Button>
         )}
         <Button variant="info" className="scroll-up-btn mx-auto" href="#logo">
-          <FontAwesomeIcon icon="arrow-circle-up" color="white" /> Vrati se
+          <FontAwesomeIcon icon="arrow-circle-up" color="white" /> Pretraži još
         </Button>
       </div>
     </ListGroup>
