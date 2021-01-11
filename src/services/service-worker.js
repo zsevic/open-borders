@@ -8,7 +8,7 @@ import { CacheFirst, StaleWhileRevalidate } from 'workbox-strategies';
 const maxAgeSeconds = 30 * 24 * 60 * 60;
 const maxEntries = 60;
 
-precacheAndRoute(self.__WB_MANIFEST);
+// precacheAndRoute(self.__WB_MANIFEST);
 
 clientsClaim();
 
@@ -50,7 +50,7 @@ registerRoute(
         statuses: [0, 200],
       }),
       new ExpirationPlugin({
-        maxEntries: 20,
+        maxEntries,
         maxAgeSeconds,
       }),
     ],
