@@ -1,14 +1,12 @@
 import { CacheableResponsePlugin } from 'workbox-cacheable-response';
 import { clientsClaim } from 'workbox-core';
 import { ExpirationPlugin } from 'workbox-expiration';
-import { cleanupOutdatedCaches, precacheAndRoute } from 'workbox-precaching';
+import { cleanupOutdatedCaches } from 'workbox-precaching';
 import { registerRoute } from 'workbox-routing';
 import { CacheFirst, StaleWhileRevalidate } from 'workbox-strategies';
 
 const maxAgeSeconds = 30 * 24 * 60 * 60;
 const maxEntries = 60;
-
-// precacheAndRoute(self.__WB_MANIFEST);
 
 clientsClaim();
 
@@ -58,7 +56,9 @@ registerRoute(
 );
 
 registerRoute(
-  ({ url }) => url.pathname.startsWith('/_next/static/'),
+  ({ url }) =>
+    url.origin === self.location.origin &&
+    url.pathname.startsWith('/_next/static/'),
   new StaleWhileRevalidate({
     cacheName: 'static-caches',
   }),

@@ -11,8 +11,8 @@ import {
 import PropTypes from 'prop-types';
 import React, { useEffect } from 'react';
 import ReactGA from 'react-ga';
-import { Workbox } from 'workbox-window';
 import { GOOGLE_ANALYTICS_TRACKING_ID } from 'constants/config';
+import { registerServiceWorker } from 'services/service-worker-registration';
 
 library.add(faArrowCircleDown, faArrowCircleUp, faSearch, faTimes);
 if (process.env.NODE_ENV !== 'development') {
@@ -20,18 +20,7 @@ if (process.env.NODE_ENV !== 'development') {
 }
 
 function App({ Component, pageProps }) {
-  useEffect(() => {
-    if (
-      !('serviceWorker' in navigator) ||
-      process.env.NODE_ENV !== 'production'
-    ) {
-      console.warn('Pwa support is disabled');
-      return;
-    }
-
-    const wb = new Workbox('sw.js', { scope: '/' });
-    wb.register();
-  }, []);
+  useEffect(() => registerServiceWorker(), []);
 
   return <Component {...pageProps} />;
 }
