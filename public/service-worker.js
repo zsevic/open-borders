@@ -1,9 +1,3 @@
-if ('function' === typeof importScripts) {
-  importScripts(
-    'https://storage.googleapis.com/workbox-cdn/releases/6.0.2/workbox-sw.js',
-  );
-}
-
 function main(workbox) {
   const {
     cacheableResponse: { CacheableResponsePlugin },
@@ -70,6 +64,12 @@ function main(workbox) {
   );
 }
 
-if (workbox) {
-  main(workbox);
+if ('function' === typeof importScripts) {
+  importScripts(
+    'https://storage.googleapis.com/workbox-cdn/releases/6.0.2/workbox-sw.js',
+  );
+
+  if (workbox) {
+    main(workbox);
+  }
 }
