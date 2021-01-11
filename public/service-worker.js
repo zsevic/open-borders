@@ -31,13 +31,12 @@ function main(workbox) {
   );
 
   registerRoute(
-    ({ request }) =>
-      ['manifest', 'script', 'style'].includes(request.destination),
+    ({ request }) => ['script', 'style'].includes(request.destination),
     new StaleWhileRevalidate({
       cacheName: 'static-resources',
       plugins: [
         new CacheableResponsePlugin({
-          statuses: [0, 200, 304],
+          statuses: [0, 200],
         }),
       ],
     }),
