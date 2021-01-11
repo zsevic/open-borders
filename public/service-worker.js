@@ -1,9 +1,15 @@
-import { CacheableResponsePlugin } from 'workbox-cacheable-response';
-import { clientsClaim } from 'workbox-core';
-import { ExpirationPlugin } from 'workbox-expiration';
-import { cleanupOutdatedCaches } from 'workbox-precaching';
-import { registerRoute } from 'workbox-routing';
-import { CacheFirst, StaleWhileRevalidate } from 'workbox-strategies';
+importScripts(
+  'https://storage.googleapis.com/workbox-cdn/releases/6.0.2/workbox-sw.js',
+);
+
+const {
+  cacheableResponse: { CacheableResponsePlugin },
+  core: { clientsClaim },
+  expiration: { ExpirationPlugin },
+  precaching: { cleanupOutdatedCaches },
+  routing: { registerRoute },
+  strategies: { CacheFirst, StaleWhileRevalidate },
+} = workbox;
 
 const maxAgeSeconds = 30 * 24 * 60 * 60;
 const maxEntries = 60;
