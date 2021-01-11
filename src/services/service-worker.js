@@ -3,11 +3,7 @@ import { clientsClaim } from 'workbox-core';
 import { ExpirationPlugin } from 'workbox-expiration';
 import { cleanupOutdatedCaches, precacheAndRoute } from 'workbox-precaching';
 import { registerRoute } from 'workbox-routing';
-import {
-  CacheFirst,
-  NetworkFirst,
-  StaleWhileRevalidate,
-} from 'workbox-strategies';
+import { CacheFirst, StaleWhileRevalidate } from 'workbox-strategies';
 
 const maxAgeSeconds = 30 * 24 * 60 * 60;
 
@@ -20,9 +16,9 @@ self.skipWaiting();
 cleanupOutdatedCaches();
 
 registerRoute(
-  ({ url }) => url.pathname === '/',
-  new CacheFirst({
-    cacheName: 'start_url',
+  ({ request }) => request.mode === 'navigate',
+  new StaleWhileRevalidate({
+    cacheName: 'pages',
     plugins: [
       new CacheableResponsePlugin({
         statuses: [0, 200],
