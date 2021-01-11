@@ -58,7 +58,7 @@ registerRoute(
 );
 
 registerRoute(
-  new RegExp('/_next/static/'),
+  ({ url }) => url.pathname.startsWith('/_next/static/'),
   new StaleWhileRevalidate({
     cacheName: 'static-caches',
   }),
