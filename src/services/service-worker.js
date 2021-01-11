@@ -20,7 +20,7 @@ self.skipWaiting();
 cleanupOutdatedCaches();
 
 registerRoute(
-  ({ request }) => request.method === 'GET',
+  ({ url }) => url.pathname === '/',
   new NetworkFirst({
     cacheName: 'pages',
     plugins: [
