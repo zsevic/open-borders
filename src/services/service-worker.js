@@ -29,7 +29,7 @@ registerRoute(
 );
 
 registerRoute(
-  new RegExp('.(?:js|css)'),
+  new RegExp('.(?:js|css)$'),
   new StaleWhileRevalidate({
     cacheName: 'static-resources',
     plugins: [
