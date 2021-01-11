@@ -12,9 +12,6 @@ function main(workbox) {
     strategies: { CacheFirst, StaleWhileRevalidate },
   } = workbox;
 
-  const maxAgeSeconds = 30 * 24 * 60 * 60;
-  const maxEntries = 60;
-
   clientsClaim();
 
   self.skipWaiting();
@@ -55,8 +52,8 @@ function main(workbox) {
           statuses: [0, 200],
         }),
         new ExpirationPlugin({
-          maxEntries,
-          maxAgeSeconds,
+          maxEntries: 60,
+          maxAgeSeconds: 30 * 24 * 60 * 60,
         }),
       ],
     }),
