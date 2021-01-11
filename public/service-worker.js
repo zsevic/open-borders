@@ -37,7 +37,7 @@ function main(workbox) {
       cacheName: 'static-resources',
       plugins: [
         new CacheableResponsePlugin({
-          statuses: [0, 200],
+          statuses: [0, 200, 304],
         }),
       ],
     }),
