@@ -29,7 +29,8 @@ registerRoute(
 );
 
 registerRoute(
-  new RegExp('.(?:js|css)$'),
+  ({ request }) =>
+    request.destination === 'style' || request.destination === 'script',
   new StaleWhileRevalidate({
     cacheName: 'static-resources',
     plugins: [
