@@ -9,6 +9,8 @@ import {
   StaleWhileRevalidate,
 } from 'workbox-strategies';
 
+const maxAgeSeconds = 30 * 24 * 60 * 60;
+
 precacheAndRoute(self.__WB_MANIFEST);
 
 clientsClaim();
@@ -16,39 +18,6 @@ clientsClaim();
 self.skipWaiting();
 
 cleanupOutdatedCaches();
-
-registerRoute(
-  new RegExp('.(?:png|gif|jpg|jpeg|webp|svg)'),
-  new CacheFirst({
-    cacheName: 'image-caches',
-    plugins: [
-      new CacheableResponsePlugin({
-        statuses: [0, 200],
-      }),
-      new ExpirationPlugin({
-        maxEntries: 20,
-        maxAgeSeconds: 12 * 60 * 60,
-      }),
-    ],
-  }),
-  'GET',
-);
-
-registerRoute(
-  new RegExp('.(?:js|css)$'),
-  new StaleWhileRevalidate({
-    cacheName: 'js-css-caches',
-    plugins: [
-      new CacheableResponsePlugin({
-        statuses: [0, 200],
-      }),
-      new ExpirationPlugin({
-        maxEntries: 20,
-        maxAgeSeconds: 12 * 60 * 60,
-      }),
-    ],
-  }),
-);
 
 registerRoute(
   new RegExp('/'),
@@ -60,11 +29,41 @@ registerRoute(
       }),
       new ExpirationPlugin({
         maxEntries: 20,
-        maxAgeSeconds: 12 * 60 * 60,
+        maxAgeSeconds,
       }),
     ],
   }),
   'GET',
+);
+
+registerRoute(
+  ({ request }) => request.destination === 'image',
+  new CacheFirst({
+    cacheName: 'images',
+    plugins: [
+      new CacheableResponsePlugin({
+        statuses: [0, 200],
+      }),
+      new ExpirationPlugin({
+        maxEntries: 20,
+        maxAgeSeconds,
+      }),
+    ],
+  }),
+  'GET',
+);
+
+registerRoute(
+  ({ request }) =>
+    request.destination === 'style' || request.destination === 'script',
+  new StaleWhileRevalidate({
+    cacheName: 'static-resources',
+    plugins: [
+      new CacheableResponsePlugin({
+        statuses: [0, 200],
+      }),
+    ],
+  }),
 );
 
 registerRoute(
