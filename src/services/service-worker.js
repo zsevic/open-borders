@@ -21,8 +21,8 @@ cleanupOutdatedCaches();
 
 registerRoute(
   ({ url }) => url.pathname === '/',
-  new NetworkFirst({
-    cacheName: 'pages',
+  new CacheFirst({
+    cacheName: 'start_url',
     plugins: [
       new CacheableResponsePlugin({
         statuses: [0, 200],
