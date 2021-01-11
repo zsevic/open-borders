@@ -31,7 +31,7 @@
     "clean": "rimraf .next",
     "dev": "next dev -p 1234",
     "format": "prettier --write \"src/**/*.{js,jsx}\"",
-    "lint": "eslint \"src/**/*.{js,jsx}\"",
+    "lint": "eslint \"{public,src}/**/*.{js,jsx}\"",
     "lint:fix": "npm run lint -- --fix",
     "start": "next start -p 1234",
     "test": "jest --passWithNoTests"
