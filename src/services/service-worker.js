@@ -6,6 +6,7 @@ import { registerRoute } from 'workbox-routing';
 import { CacheFirst, StaleWhileRevalidate } from 'workbox-strategies';
 
 const maxAgeSeconds = 30 * 24 * 60 * 60;
+const maxEntries = 60;
 
 precacheAndRoute(self.__WB_MANIFEST);
 
@@ -51,6 +52,29 @@ registerRoute(
       new ExpirationPlugin({
         maxEntries: 20,
         maxAgeSeconds,
+      }),
+    ],
+  }),
+);
+
+registerRoute(
+  ({ url }) => url.origin === 'https://fonts.googleapis.com',
+  new StaleWhileRevalidate({
+    cacheName: 'google-fonts-stylesheets',
+  }),
+);
+
+registerRoute(
+  ({ url }) => url.origin === 'https://fonts.gstatic.com',
+  new CacheFirst({
+    cacheName: 'google-fonts-webfonts',
+    plugins: [
+      new CacheableResponsePlugin({
+        statuses: [0, 200],
+      }),
+      new ExpirationPlugin({
+        maxAgeSeconds,
+        maxEntries,
       }),
     ],
   }),
