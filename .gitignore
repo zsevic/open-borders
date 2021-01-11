@@ -29,4 +29,4 @@ yarn-error.log*
 
 .vercel
 
-public/service-worker.js
+public/service-worker/main.js
