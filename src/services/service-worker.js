@@ -30,7 +30,7 @@ registerRoute(
 
 registerRoute(
   ({ request }) =>
-    request.destination === 'style' || request.destination === 'script',
+    ['manifest', 'script', 'style'].includes(request.destination),
   new StaleWhileRevalidate({
     cacheName: 'static-resources',
     plugins: [
