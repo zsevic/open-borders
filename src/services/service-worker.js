@@ -20,20 +20,28 @@ self.skipWaiting();
 cleanupOutdatedCaches();
 
 registerRoute(
-  new RegExp('/'),
+  ({ request }) => request.mode === 'navigate',
   new NetworkFirst({
-    cacheName: 'html-caches',
+    cacheName: 'pages',
     plugins: [
       new CacheableResponsePlugin({
         statuses: [0, 200],
       }),
-      new ExpirationPlugin({
-        maxEntries: 20,
-        maxAgeSeconds,
+    ],
+  }),
+);
+
+registerRoute(
+  ({ request }) =>
+    request.destination === 'style' || request.destination === 'script',
+  new StaleWhileRevalidate({
+    cacheName: 'static-resources',
+    plugins: [
+      new CacheableResponsePlugin({
+        statuses: [0, 200],
       }),
     ],
   }),
-  'GET',
 );
 
 registerRoute(
@@ -47,20 +55,6 @@ registerRoute(
       new ExpirationPlugin({
         maxEntries: 20,
         maxAgeSeconds,
-      }),
-    ],
-  }),
-  'GET',
-);
-
-registerRoute(
-  ({ request }) =>
-    request.destination === 'style' || request.destination === 'script',
-  new StaleWhileRevalidate({
-    cacheName: 'static-resources',
-    plugins: [
-      new CacheableResponsePlugin({
-        statuses: [0, 200],
       }),
     ],
   }),
