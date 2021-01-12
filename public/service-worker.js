@@ -65,7 +65,6 @@ function main(workbox) {
 }
 
 if ('function' === typeof importScripts) {
-  console.log('cached!');
   importScripts(
     'https://storage.googleapis.com/workbox-cdn/releases/6.0.2/workbox-sw.js',
   );
