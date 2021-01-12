@@ -59,3 +59,5 @@ registerRoute(
     cacheName: 'static-caches',
   }),
 );
+
+console.log('cached');
