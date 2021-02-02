@@ -21,7 +21,7 @@ export default function Results({ groupedCountries }) {
     () => [
       {
         group: NO_TEST_REQUIRED,
-        title: 'Ne treba test',
+        title: 'Bez ograničenja',
       },
       {
         group: VACCINATION_REQUIRED,
@@ -66,7 +66,7 @@ export default function Results({ groupedCountries }) {
       <Tabs
         activeKey={activeTab}
         onSelect={handleOnSelect}
-        className="nav nav-tabs nav-fill mb-3 bg-tabs">
+        className="nav nav-justified mb-3 bg-tabs">
         {tabs.map(
           (tab) =>
             getCountriesCounter(groupedCountries[tab.group]) > 0 && (
@@ -79,7 +79,7 @@ export default function Results({ groupedCountries }) {
                     countries={groupedCountries[tab.group]}
                   />
                 }
-                tabClassName="nav-item w-50 text-info">
+                tabClassName="nav-item text-info">
                 <GroupResults countries={groupedCountries[tab.group]} />
               </Tab>
             ),
