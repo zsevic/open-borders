@@ -42,7 +42,7 @@ export default function Results({ groupedCountries }) {
       },
       {
         group: VACCINATION_REQUIRED,
-        title: 'Potvrda o vakcinaciji',
+        title: 'Vakcinacija',
       },
       {
         group: NEGATIVE_TEST_REQUIRED,
@@ -50,7 +50,7 @@ export default function Results({ groupedCountries }) {
       },
       {
         group: QUARANTINE_REQUIRED,
-        title: 'Obavezan karantin',
+        title: 'Karantin',
       },
       {
         group: CLOSED_BORDER,
