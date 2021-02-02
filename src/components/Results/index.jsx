@@ -1,6 +1,7 @@
 import classnames from 'classnames';
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { Tabs, Tab } from 'react-bootstrap';
+import ReactGA from 'react-ga';
 import GroupResults from 'components/GroupResults';
 import TabTitle from 'components/TabTitle';
 import {
@@ -10,6 +11,7 @@ import {
   QUARANTINE_REQUIRED,
   VACCINATION_REQUIRED,
 } from 'constants/countries';
+import { groupTabs } from 'constants/tabs';
 import { getCountriesCounter } from 'services/countries';
 import eventBus from 'utils/event-bus';
 import { isInAppBrowser } from 'utils/in-app-browser';
@@ -23,17 +25,7 @@ export default function Results({ groupedCountries }) {
     'text-info': true,
     'in-app-browser-tabs': inAppBrowser,
   });
-  const [key, setKey] = useState('home');
-  const groupKeys = useMemo(
-    () => ({
-      [NO_TEST_REQUIRED]: 'home',
-      [VACCINATION_REQUIRED]: 'menu4',
-      [NEGATIVE_TEST_REQUIRED]: 'menu1',
-      [QUARANTINE_REQUIRED]: 'menu2',
-      [CLOSED_BORDER]: 'menu3',
-    }),
-    [],
-  );
+  const [activeTab, setActiveTab] = useState(groupTabs[NO_TEST_REQUIRED]);
   const tabs = useMemo(
     () => [
       {
@@ -60,28 +52,39 @@ export default function Results({ groupedCountries }) {
     [],
   );
 
+  const handleOnSelect = useCallback((selectedTab) => {
+    setActiveTab(selectedTab);
+    if (process.env.NODE_ENV !== 'development') {
+      ReactGA.event({
+        action: 'click',
+        category: 'tab',
+        label: selectedTab,
+      });
+    }
+  });
+
   useEffect(() => {
     eventBus.on('selected-country', (data) => {
-      data.group && setKey(groupKeys[data.group]);
+      data.group && setActiveTab(groupTabs[data.group]);
     });
     if (isInAppBrowser()) {
       setInAppBrowser(true);
     }
     return () => eventBus.remove('selected-country');
-  }, [groupKeys]);
+  }, []);
 
   return (
     <div className="container d-block mt-3">
       <Tabs
-        activeKey={key}
-        onSelect={(k) => setKey(k)}
+        activeKey={activeTab}
+        onSelect={handleOnSelect}
         className="nav nav-tabs nav-fill mb-3 bg-tabs">
         {tabs.map(
           (tab) =>
             getCountriesCounter(groupedCountries[tab.group]) > 0 && (
               <Tab
-                key={groupKeys[tab.group]}
-                eventKey={groupKeys[tab.group]}
+                key={groupTabs[tab.group]}
+                eventKey={groupTabs[tab.group]}
                 title={
                   <TabTitle
                     title={tab.title}
