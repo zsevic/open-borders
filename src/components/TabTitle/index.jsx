@@ -3,7 +3,7 @@ import React from 'react';
 import GroupCounter from 'components/GroupCounter';
 import { countriesPropType } from 'utils/prop-types';
 
-export default function MobileTabTitle({ title, countries }) {
+export default function TabTitle({ title, countries }) {
   return (
     <span>
       {title} <GroupCounter countries={countries} />
@@ -11,7 +11,7 @@ export default function MobileTabTitle({ title, countries }) {
   );
 }
 
-MobileTabTitle.propTypes = {
+TabTitle.propTypes = {
   title: PropTypes.string.isRequired,
   countries: countriesPropType,
 };

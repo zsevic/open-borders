@@ -2,7 +2,7 @@ import classnames from 'classnames';
 import React, { useEffect, useMemo, useState } from 'react';
 import { Tabs, Tab } from 'react-bootstrap';
 import GroupResults from 'components/GroupResults';
-import MobileTabTitle from 'components/MobileTabTitle';
+import TabTitle from 'components/TabTitle';
 import {
   CLOSED_BORDER,
   NEGATIVE_TEST_REQUIRED,
@@ -17,7 +17,7 @@ import { groupedCountriesPropType } from 'utils/prop-types';
 
 export default function Results({ groupedCountries }) {
   const [inAppBrowser, setInAppBrowser] = useState(false);
-  const mobileTabClass = classnames({
+  const tabClass = classnames({
     'nav-item': true,
     'w-50': true,
     'text-info': true,
@@ -83,12 +83,12 @@ export default function Results({ groupedCountries }) {
                 key={groupKeys[tab.group]}
                 eventKey={groupKeys[tab.group]}
                 title={
-                  <MobileTabTitle
+                  <TabTitle
                     title={tab.title}
                     countries={groupedCountries[tab.group]}
                   />
                 }
-                tabClassName={mobileTabClass}>
+                tabClassName={tabClass}>
                 <GroupResults countries={groupedCountries[tab.group]} />
               </Tab>
             ),
