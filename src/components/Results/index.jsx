@@ -1,4 +1,3 @@
-import classnames from 'classnames';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { Tabs, Tab } from 'react-bootstrap';
 import ReactGA from 'react-ga';
@@ -14,17 +13,9 @@ import {
 import { groupTabs } from 'constants/tabs';
 import { getCountriesCounter } from 'services/countries';
 import eventBus from 'utils/event-bus';
-import { isInAppBrowser } from 'utils/in-app-browser';
 import { groupedCountriesPropType } from 'utils/prop-types';
 
 export default function Results({ groupedCountries }) {
-  const [inAppBrowser, setInAppBrowser] = useState(false);
-  const tabClass = classnames({
-    'nav-item': true,
-    'w-50': true,
-    'text-info': true,
-    'in-app-browser-tabs': inAppBrowser,
-  });
   const [activeTab, setActiveTab] = useState(groupTabs[NO_TEST_REQUIRED]);
   const tabs = useMemo(
     () => [
@@ -67,9 +58,6 @@ export default function Results({ groupedCountries }) {
     eventBus.on('selected-country', (data) => {
       data.group && setActiveTab(groupTabs[data.group]);
     });
-    if (isInAppBrowser()) {
-      setInAppBrowser(true);
-    }
     return () => eventBus.remove('selected-country');
   }, []);
 
@@ -91,7 +79,7 @@ export default function Results({ groupedCountries }) {
                     countries={groupedCountries[tab.group]}
                   />
                 }
-                tabClassName={tabClass}>
+                tabClassName="nav-item w-50 text-info">
                 <GroupResults countries={groupedCountries[tab.group]} />
               </Tab>
             ),
