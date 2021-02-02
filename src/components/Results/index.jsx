@@ -15,7 +15,7 @@ import eventBus from 'utils/event-bus';
 import { isInAppBrowser } from 'utils/in-app-browser';
 import { groupedCountriesPropType } from 'utils/prop-types';
 
-export default function MobileResults({ groupedCountries }) {
+export default function Results({ groupedCountries }) {
   const [inAppBrowser, setInAppBrowser] = useState(false);
   const mobileTabClass = classnames({
     'nav-item': true,
@@ -42,15 +42,15 @@ export default function MobileResults({ groupedCountries }) {
       },
       {
         group: VACCINATION_REQUIRED,
-        title: 'Potrebna vakcinacija',
+        title: 'Potvrda o vakcinaciji',
       },
       {
         group: NEGATIVE_TEST_REQUIRED,
-        title: 'Potreban test',
+        title: 'Negativan test',
       },
       {
         group: QUARANTINE_REQUIRED,
-        title: 'Karantin',
+        title: 'Obavezan karantin',
       },
       {
         group: CLOSED_BORDER,
@@ -71,7 +71,7 @@ export default function MobileResults({ groupedCountries }) {
   }, [groupKeys]);
 
   return (
-    <div className="container d-block d-lg-none mt-3">
+    <div className="container d-block mt-3">
       <Tabs
         activeKey={key}
         onSelect={(k) => setKey(k)}
@@ -98,6 +98,6 @@ export default function MobileResults({ groupedCountries }) {
   );
 }
 
-MobileResults.propTypes = {
+Results.propTypes = {
   groupedCountries: groupedCountriesPropType,
 };

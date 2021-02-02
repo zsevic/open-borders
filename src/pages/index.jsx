@@ -1,10 +1,9 @@
 import Head from 'next/head';
 import React, { useCallback, useEffect, useState } from 'react';
 import CommonHead from 'components/CommonHead';
-import DesktopResults from 'components/DesktopResults';
 import Header from 'components/Header';
 import Loader from 'components/Loader';
-import MobileResults from 'components/MobileResults';
+import Results from 'components/Results';
 import SearchBar from 'components/SearchBar';
 import {
   DOMAIN_URL,
@@ -82,8 +81,7 @@ export default function HomePage() {
         filterCountriesList={filterCountriesList}
         showAllCountries={showAllCountries}
       />
-      <MobileResults groupedCountries={groupedCountries} />
-      <DesktopResults groupedCountries={groupedCountries} />
+      <Results groupedCountries={groupedCountries} />
       {loading && <Loader />}
     </div>
   );
