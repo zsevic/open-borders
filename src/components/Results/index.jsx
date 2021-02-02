@@ -50,7 +50,7 @@ export default function Results({ groupedCountries }) {
       },
       {
         group: QUARANTINE_REQUIRED,
-        title: 'Karantin',
+        title: 'Obavezan karantin',
       },
       {
         group: CLOSED_BORDER,

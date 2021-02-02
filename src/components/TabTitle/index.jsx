@@ -1,13 +1,16 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { Fragment } from 'react';
 import GroupCounter from 'components/GroupCounter';
 import { countriesPropType } from 'utils/prop-types';
 
 export default function TabTitle({ title, countries }) {
   return (
-    <span style={{ padding: 0 }}>
-      {title} <GroupCounter countries={countries} />
-    </span>
+    <Fragment>
+      <div className="text-center">{title}</div>
+      <div className="text-center">
+        <GroupCounter countries={countries} />
+      </div>
+    </Fragment>
   );
 }
 
