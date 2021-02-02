@@ -5,7 +5,7 @@ import { countriesPropType } from 'utils/prop-types';
 
 export default function TabTitle({ title, countries }) {
   return (
-    <span>
+    <span style={{ padding: 0 }}>
       {title} <GroupCounter countries={countries} />
     </span>
   );

@@ -42,7 +42,7 @@ export default function Results({ groupedCountries }) {
       },
       {
         group: VACCINATION_REQUIRED,
-        title: 'Vakcinacija',
+        title: 'Potvrda o vakcinaciji',
       },
       {
         group: NEGATIVE_TEST_REQUIRED,
