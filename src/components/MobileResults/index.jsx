@@ -8,6 +8,7 @@ import {
   NEGATIVE_TEST_REQUIRED,
   NO_TEST_REQUIRED,
   QUARANTINE_REQUIRED,
+  VACCINATION_REQUIRED,
 } from 'constants/countries';
 import { getCountriesCounter } from 'services/countries';
 import eventBus from 'utils/event-bus';
@@ -26,6 +27,7 @@ export default function MobileResults({ groupedCountries }) {
   const groupKeys = useMemo(
     () => ({
       [NO_TEST_REQUIRED]: 'home',
+      [VACCINATION_REQUIRED]: 'menu4',
       [NEGATIVE_TEST_REQUIRED]: 'menu1',
       [QUARANTINE_REQUIRED]: 'menu2',
       [CLOSED_BORDER]: 'menu3',
@@ -37,6 +39,10 @@ export default function MobileResults({ groupedCountries }) {
       {
         group: NO_TEST_REQUIRED,
         title: 'Ne treba test',
+      },
+      {
+        group: VACCINATION_REQUIRED,
+        title: 'Potrebna vakcinacija',
       },
       {
         group: NEGATIVE_TEST_REQUIRED,

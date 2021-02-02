@@ -6,7 +6,7 @@ import { countriesPropType } from 'utils/prop-types';
 
 export default function DesktopGroup({ name, countries }) {
   return (
-    <div className="col-md-3 mt-2">
+    <div className="col mt-2">
       <p className="lead text-center text-info">
         {name} <GroupCounter countries={countries} />
       </p>

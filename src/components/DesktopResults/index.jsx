@@ -5,6 +5,7 @@ import {
   NEGATIVE_TEST_REQUIRED,
   NO_TEST_REQUIRED,
   QUARANTINE_REQUIRED,
+  VACCINATION_REQUIRED,
 } from 'constants/countries';
 import { groupedCountriesPropType } from 'utils/prop-types';
 
@@ -13,6 +14,10 @@ export default function DesktopResults({ groupedCountries }) {
     {
       name: 'Nije potreban test',
       countries: groupedCountries[NO_TEST_REQUIRED],
+    },
+    {
+      name: 'Potrebna vakcinacija',
+      countries: groupedCountries[VACCINATION_REQUIRED],
     },
     {
       name: 'Negativan test',
