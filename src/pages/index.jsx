@@ -3,6 +3,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import CommonHead from 'components/CommonHead';
 import Header from 'components/Header';
 import Loader from 'components/Loader';
+import NoResults from 'components/NoResults';
 import Results from 'components/Results';
 import SearchBar from 'components/SearchBar';
 import {
@@ -83,6 +84,7 @@ export default function HomePage() {
       />
       <Results groupedCountries={groupedCountries} />
       {loading && <Loader />}
+      {countriesList.length === 0 && !loading && <NoResults />}
     </div>
   );
 }

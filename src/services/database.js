@@ -6,17 +6,21 @@ import {
 } from 'constants/database';
 
 export const idbRepository = {
-  async openDb() {
-    return openDB(IDB_DATABASE_NAME, IDB_DATABASE_VERSION, {
-      upgrade(db) {
-        db.createObjectStore(IDB_DATABASE_OBJECT_STORE);
-      },
-    });
+  async openDatabase() {
+    try {
+      await openDB(IDB_DATABASE_NAME, IDB_DATABASE_VERSION, {
+        upgrade(database) {
+          database.createObjectStore(IDB_DATABASE_OBJECT_STORE);
+        },
+      });
+    } catch {
+      console.error('IndexedDB is not supported');
+    }
   },
-  async get(key) {
-    return (await this.openDb()).get(IDB_DATABASE_OBJECT_STORE, key);
+  async get(database, key) {
+    return database.get(IDB_DATABASE_OBJECT_STORE, key);
   },
-  async set(key, val) {
-    return (await this.openDb()).put(IDB_DATABASE_OBJECT_STORE, val, key);
+  async set(database, key, value) {
+    return database.put(IDB_DATABASE_OBJECT_STORE, value, key);
   },
 };

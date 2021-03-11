@@ -35,9 +35,14 @@ export const getGroupedCountries = (countries) =>
 
 export const loadCountriesList = async (setGroupedCountriesHook) => {
   try {
-    const countriesIdbList = await idbRepository.get('countries');
-    if (countriesIdbList && countriesIdbList.length !== 0) {
-      setGroupedCountriesHook(getGroupedCountries(countriesIdbList));
+    const database = await idbRepository.openDatabase();
+    let countriesIdbList = [];
+
+    if (database) {
+      countriesIdbList = await idbRepository.get(database, 'countries');
+      if (countriesIdbList && countriesIdbList.length !== 0) {
+        setGroupedCountriesHook(getGroupedCountries(countriesIdbList));
+      }
     }
 
     const countriesList = await getCountries();
@@ -45,8 +50,10 @@ export const loadCountriesList = async (setGroupedCountriesHook) => {
 
     if (!isEqual(countriesList, countriesIdbList)) {
       setGroupedCountriesHook(getGroupedCountries(countriesList));
-      await idbRepository.set('countries', countriesList);
-      console.log('IndexedDB data is updated');
+      if (database) {
+        await idbRepository.set(database, 'countries', countriesList);
+        console.log('IndexedDB data is updated');
+      }
       return countriesList;
     }
 
