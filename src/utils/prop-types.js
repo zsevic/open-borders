@@ -4,7 +4,7 @@ import {
   NEGATIVE_TEST_REQUIRED,
   NO_TEST_REQUIRED,
   QUARANTINE_REQUIRED,
-  VACCINATION_REQUIRED,
+  VACCINATION_CERTIFICATE,
 } from 'constants/countries';
 
 export const countryPropType = PropTypes.shape({
@@ -21,5 +21,5 @@ export const groupedCountriesPropType = PropTypes.shape({
   [NO_TEST_REQUIRED]: PropTypes.arrayOf(countryPropType),
   [NEGATIVE_TEST_REQUIRED]: PropTypes.arrayOf(countryPropType),
   [QUARANTINE_REQUIRED]: PropTypes.arrayOf(countryPropType),
-  [VACCINATION_REQUIRED]: PropTypes.arrayOf(countryPropType),
+  [VACCINATION_CERTIFICATE]: PropTypes.arrayOf(countryPropType),
 });

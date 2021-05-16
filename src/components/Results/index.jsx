@@ -8,7 +8,7 @@ import {
   NEGATIVE_TEST_REQUIRED,
   NO_TEST_REQUIRED,
   QUARANTINE_REQUIRED,
-  VACCINATION_REQUIRED,
+  VACCINATION_CERTIFICATE,
 } from 'constants/countries';
 import { groupTabs } from 'constants/tabs';
 import { getCountriesCounter } from 'services/countries';
@@ -24,7 +24,7 @@ export default function Results({ groupedCountries }) {
         title: 'Bez ograničenja',
       },
       {
-        group: VACCINATION_REQUIRED,
+        group: VACCINATION_CERTIFICATE,
         title: 'Potvrda o vakcinaciji',
       },
       {

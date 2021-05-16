@@ -3,7 +3,7 @@ import {
   NEGATIVE_TEST_REQUIRED,
   NO_TEST_REQUIRED,
   QUARANTINE_REQUIRED,
-  VACCINATION_REQUIRED,
+  VACCINATION_CERTIFICATE,
 } from './countries';
 
 export const groupTabs = {
@@ -11,5 +11,5 @@ export const groupTabs = {
   [NEGATIVE_TEST_REQUIRED]: 'negative-test-required-tab',
   [NO_TEST_REQUIRED]: 'no-test-required-tab',
   [QUARANTINE_REQUIRED]: 'quarantine-required-tab',
-  [VACCINATION_REQUIRED]: 'vaccination-required-tab',
+  [VACCINATION_CERTIFICATE]: 'vaccination-certificate-tab',
 };
