@@ -8,7 +8,8 @@ import eventBus from 'utils/event-bus';
 import { countriesPropType } from 'utils/prop-types';
 
 export default function CountryList({ countries, length }) {
-  const [showMore, setShowMore] = useState(true);
+  const initialShowMore = LIMIT < length - 1;
+  const [showMore, setShowMore] = useState(initialShowMore);
   const [list, setList] = useState(countries.slice(0, LIMIT));
   const [index, setIndex] = useState(LIMIT);
 
