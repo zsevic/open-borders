@@ -9,11 +9,7 @@ export default function Header() {
         Brzo i jednostavno saznajte za ulazak u koje zemlje vam je potreban
         negativan PCR test, potvrda o vakcinaciji, da li je obavezan karantin po
         ulasku ili možete da putujete bez ikakvih ograničenja. Zemlje su
-        grupisane na osnovu zvaničnih podataka. Ukoliko imate komentar ili
-        predlog, možete da pošaljete e-mail na{' '}
-        <a href="mailto:info@otvorene-granice.com" className="text-info">
-          info@otvorene-granice.com
-        </a>
+        grupisane na osnovu zvaničnih podataka.
       </p>
     </header>
   );
