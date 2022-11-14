@@ -2,8 +2,6 @@
 
 > Open borders (related to COVID-19 restrictions) for Serbian citizens
 
-See demo: [https://otvorene-granice.com](https://otvorene-granice.com)
-
 ### Setup
 
 ```bash
