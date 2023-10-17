@@ -2,8 +2,6 @@
 
 > Open borders (related to COVID-19 restrictions) for Serbian citizens
 
-See demo: [https://open-borders.vercel.app](https://open-borders.vercel.app)
-
 ### Setup
 
 ```bash
